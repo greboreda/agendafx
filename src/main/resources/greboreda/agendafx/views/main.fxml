@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="greboreda.agendafx.controllers.MainController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
@@ -53,12 +57,32 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
-        <Label alignment="CENTER" layoutX="206.0" layoutY="46.0" style="&#10;" text="My awesome JavaFX app" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
+        <Label alignment="CENTER" layoutX="208.0" layoutY="14.0" style="&#10;" text="My awesome JavaFX app" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
           <font>
             <Font size="18.0" />
           </font>
         </Label>
-            <Button fx:id="mainButton" layoutX="289.0" layoutY="125.0" mnemonicParsing="false" onAction="#onActionMainButton" text="Click me!" />
+            <Button fx:id="loadPersonsButton" layoutX="268.0" layoutY="41.0" mnemonicParsing="false" onAction="#onActionOnLoadPersonsButton" text="Load Persons" />
+            <Accordion layoutX="228.0" layoutY="186.0" />
+            <TableView fx:id="personsTable" layoutX="66.0" layoutY="86.0" prefHeight="200.0" prefWidth="523.0">
+              <columns>
+                <TableColumn prefWidth="75.0" text="id" >
+                  <cellValueFactory>
+                    <PropertyValueFactory property="id" />
+                  </cellValueFactory>
+                </TableColumn>
+                <TableColumn prefWidth="196.0" text="First Name" >
+                  <cellValueFactory>
+                    <PropertyValueFactory property="firstName" />
+                  </cellValueFactory>
+                </TableColumn>
+                <TableColumn prefWidth="251.0" text="Last Name" >
+                  <cellValueFactory>
+                    <PropertyValueFactory property="lastName" />
+                  </cellValueFactory>
+                </TableColumn>
+              </columns>
+            </TableView>
       </children>
     </AnchorPane>
   </children>
