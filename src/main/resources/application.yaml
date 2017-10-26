@@ -1,3 +1,8 @@
+javafx:
+  title: ${spring.application.name}
+  stage:
+    resizable: true
+
 spring:
   application:
     name: agendaFx
@@ -13,3 +18,9 @@ spring:
     username: sa
     password:
     driver-class-name: org.h2.Driver
+
+logging:
+  file: logs/${spring.application.name}.log
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE

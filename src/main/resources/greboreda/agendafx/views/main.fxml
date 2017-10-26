@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="greboreda.agendafx.controllers.MainController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -53,12 +53,12 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
-        <Label alignment="CENTER" layoutX="217.0" layoutY="89.0" style="&#10;" text="My awesome JavaFX app" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
+        <Label alignment="CENTER" layoutX="206.0" layoutY="46.0" style="&#10;" text="My awesome JavaFX app" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
           <font>
             <Font size="18.0" />
           </font>
         </Label>
-            <Button layoutX="289.0" layoutY="152.0" mnemonicParsing="false" text="Click me!" />
+            <Button fx:id="mainButton" layoutX="289.0" layoutY="125.0" mnemonicParsing="false" onAction="#onActionMainButton" text="Click me!" />
       </children>
     </AnchorPane>
   </children>
