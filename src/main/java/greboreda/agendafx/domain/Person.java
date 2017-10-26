@@ -48,4 +48,13 @@ public class Person {
 			return firstName ->lastName -> () -> new Person(id, firstName, lastName);
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "Person{" +
+				"id=" + id +
+				", firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				'}';
+	}
 }

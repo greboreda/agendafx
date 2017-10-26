@@ -9,6 +9,7 @@
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -55,34 +56,36 @@
         </Menu>
       </menus>
     </MenuBar>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="426.0" prefWidth="640.0" VBox.vgrow="ALWAYS">
       <children>
-        <Label alignment="CENTER" layoutX="208.0" layoutY="14.0" style="&#10;" text="My awesome JavaFX app" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
+        <Label alignment="CENTER" layoutX="208.0" layoutY="31.0" style="&#10;" text="My awesome JavaFX app" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
           <font>
             <Font size="18.0" />
           </font>
         </Label>
-            <Button fx:id="loadPersonsButton" layoutX="268.0" layoutY="41.0" mnemonicParsing="false" onAction="#onActionOnLoadPersonsButton" text="Load Persons" />
             <Accordion layoutX="228.0" layoutY="186.0" />
             <TableView fx:id="personsTable" layoutX="66.0" layoutY="86.0" prefHeight="200.0" prefWidth="523.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="id" >
+                <TableColumn prefWidth="75.0" text="id">
                   <cellValueFactory>
                     <PropertyValueFactory property="id" />
                   </cellValueFactory>
                 </TableColumn>
-                <TableColumn prefWidth="196.0" text="First Name" >
+                <TableColumn prefWidth="196.0" text="First Name">
                   <cellValueFactory>
                     <PropertyValueFactory property="firstName" />
                   </cellValueFactory>
                 </TableColumn>
-                <TableColumn prefWidth="251.0" text="Last Name" >
+                <TableColumn prefWidth="251.0" text="Last Name">
                   <cellValueFactory>
                     <PropertyValueFactory property="lastName" />
                   </cellValueFactory>
                 </TableColumn>
               </columns>
             </TableView>
+            <TextField fx:id="firstNameInput" layoutX="65.0" layoutY="310.0" prefHeight="26.0" prefWidth="203.0" promptText="First name" />
+            <TextField fx:id="lastNameInput" layoutX="288.0" layoutY="310.0" prefHeight="26.0" prefWidth="212.0" promptText="Last name" />
+            <Button fx:id="createPersonButton" layoutX="527.0" layoutY="310.0" mnemonicParsing="false" onAction="#onCreatePerson" text="Create" />
       </children>
     </AnchorPane>
   </children>
