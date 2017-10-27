@@ -22,7 +22,7 @@ public class PersonInput extends FlowPane {
 	@FXML
 	private Button saveButton;
 
-	protected ObjectProperty<EventHandler<SavePersonEvent>> onSavePerson = new SimpleObjectProperty<>();
+	private ObjectProperty<EventHandler<SavePersonEvent>> onSavePerson = new SimpleObjectProperty<>();
 
 	public PersonInput() {
 		ComponentInitializer.init(this, PERSON_INPUT_FXML);
@@ -36,15 +36,13 @@ public class PersonInput extends FlowPane {
 	}
 
 	private PersonToCreate retrievePersonToCreate() {
-		return new PersonToCreate(firstNameInput.getText(), lastNameInput.getText());
+		final String firstName = firstNameInput.getText();
+		final String lastName = lastNameInput.getText();
+		return new PersonToCreate(firstName, lastName);
 	}
 
-	public final void setOnSavePerson(EventHandler<SavePersonEvent> actionEvent) {
-		this.onSavePerson.set(actionEvent);
-	}
-
-	public final ObjectProperty<EventHandler<SavePersonEvent>> onSavePersonProperty() {
-		return onSavePerson;
+	public final void setOnSavePerson(EventHandler<SavePersonEvent> savePersonEvent) {
+		this.onSavePerson.set(savePersonEvent);
 	}
 
 	public final EventHandler<SavePersonEvent> getOnSavePerson() {

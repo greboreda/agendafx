@@ -5,10 +5,12 @@ import javafx.event.EventType;
 
 public class SavePersonEvent extends Event {
 
+	private static final EventType<SavePersonEvent> eventType = new EventType<>("saveperson");
+
 	private PersonToCreate personToCreate;
 
 	SavePersonEvent(PersonToCreate personToCreate) {
-		super(new EventType<SavePersonEvent>());
+		super(eventType);
 		this.personToCreate = personToCreate;
 	}
 
