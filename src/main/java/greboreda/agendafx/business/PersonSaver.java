@@ -21,9 +21,18 @@ public class PersonSaver {
 	}
 
 	public void savePerson(Person person) {
-		Validate.notNull(person, "person cannot be null");
+		validatePerson(person);
 		final PersonVO personVO = PersonMapper.mapToVO(person);
 		personDAO.save(personVO);
+	}
+
+	private void validatePerson(Person person) {
+		Validate.notNull(person, "person cannot be null");
+		if(person.getId() != null) {
+			throw new IllegalArgumentException("person to save cannot have id");
+		}
+		Validate.notBlank(person.getFirstName(), "person first name must not be blank");
+		Validate.notBlank(person.getLastName(), "person last name must not be blank");
 	}
 
 }
