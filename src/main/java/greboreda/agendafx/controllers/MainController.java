@@ -3,13 +3,12 @@ package greboreda.agendafx.controllers;
 import de.felixroske.jfxsupport.FXMLController;
 import greboreda.agendafx.business.PersonCreator;
 import greboreda.agendafx.business.PersonFinder;
+import greboreda.agendafx.components.personinput.PersonInput;
+import greboreda.agendafx.components.personinput.PersonToCreate;
+import greboreda.agendafx.components.personinput.SavePersonEvent;
+import greboreda.agendafx.components.personoutput.PersonsOutput;
 import greboreda.agendafx.domain.Person;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,57 +17,39 @@ import javax.inject.Inject;
 @FXMLController
 public class MainController {
 
-	private final Logger logger = LoggerFactory.getLogger(MainController.class);
-
-	private final PersonFinder personFinder;
-	private final PersonCreator personCreator;
+	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
 	@Inject
-	public MainController(PersonFinder personFinder, PersonCreator personCreator) {
-		this.personFinder = personFinder;
-		this.personCreator = personCreator;
-	}
+	private PersonCreator personCreator;
+	@Inject
+	private PersonFinder personFinder;
 
 	@FXML
-	private TableView<Person> personsTable;
-
-	private final ObservableList<Person> persons = FXCollections.observableArrayList();
+	private PersonInput personInput;
+	@FXML
+	private PersonsOutput personsOutput;
 
 	@FXML
 	public void initialize() {
-		logger.info("Initializing view");
-		personsTable.setItems(persons);
-		refreshPersonsTable();
+		logger.info("Initializing");
+		refreshPersonsOutput();
 	}
 
-	@FXML
-	private TextField firstNameInput;
-
-	@FXML
-	private TextField lastNameInput;
-	@FXML
-	public void onCreatePerson(final Event event) {
-
-		final String firstName = firstNameInput.getText();
-		final String lastName = lastNameInput.getText();
-
+	public void onSavePerson(SavePersonEvent savePersonEvent) {
+		final PersonToCreate personToCreate = savePersonEvent.getPersonToCreate();
 		final Person person = Person.create()
 				.withId(null)
-				.withFirstName(firstName)
-				.withLastName(lastName)
+				.withFirstName(personToCreate.firstName)
+				.withLastName(personToCreate.lastName)
 				.build();
+		logger.info("Lets save person: " + person);
 		personCreator.createPerson(person);
-
-		logger.info("Created new Person: " + person);
-
-		refreshPersonsTable();
-
-		firstNameInput.clear();
-		lastNameInput.clear();
+		refreshPersonsOutput();
 	}
 
-	private void refreshPersonsTable() {
-		persons.clear();
-		persons.addAll(personFinder.findAllPersons());
+	private void refreshPersonsOutput() {
+		logger.info("Refreshing persons output!");
+		personsOutput.refresh(personFinder.findAllPersons());
 	}
+
 }
