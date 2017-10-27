@@ -6,16 +6,12 @@
 <?import javafx.scene.layout.FlowPane?>
 
 
-<fx:root  type="FlowPane" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
-    <FlowPane columnHalignment="CENTER" hgap="20.0">
-        <children>
-            <TextField fx:id="firstNameInput" promptText="First name" />
-            <TextField fx:id="lastNameInput" promptText="Last name" />
-            <Button fx:id="saveButton" mnemonicParsing="false" text="Save" />
-        </children>
-        <padding>
-            <Insets bottom="10.0" top="10.0" />
-        </padding>
-    </FlowPane>
+<fx:root  type="FlowPane" columnHalignment="CENTER" hgap="20.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
+    <TextField fx:id="firstNameInput" promptText="First name" />
+    <TextField fx:id="lastNameInput" promptText="Last name" />
+    <Button fx:id="saveButton" mnemonicParsing="false" text="Save" />
+    <padding>
+        <Insets bottom="10.0" top="10.0" />
+    </padding>
 </fx:root>
 

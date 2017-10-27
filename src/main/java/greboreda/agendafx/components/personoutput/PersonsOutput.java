@@ -1,14 +1,13 @@
 package greboreda.agendafx.components.personoutput;
 
+import greboreda.agendafx.components.ComponentFactory;
 import greboreda.agendafx.domain.Person;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.FlowPane;
 
-import java.io.IOException;
 import java.util.List;
 
 public class PersonsOutput extends FlowPane {
@@ -21,24 +20,13 @@ public class PersonsOutput extends FlowPane {
 	private final ObservableList<Person> showablePersons = FXCollections.observableArrayList();
 
 	public PersonsOutput() {
-		init();
+		ComponentFactory.initializeComponent(this, PERSONS_OUTPUT_FXML);
 		personsTable.setItems(showablePersons);
 	}
 
 	public void refresh(List<Person> persons) {
 		showablePersons.clear();
 		showablePersons.addAll(persons);
-	}
-
-	private void init() {
-		final FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(PERSONS_OUTPUT_FXML));
-		fxmlLoader.setRoot(this);
-		fxmlLoader.setController(this);
-		try {
-			fxmlLoader.load();
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
 	}
 
 }
