@@ -6,13 +6,13 @@
 <?import javafx.scene.layout.FlowPane?>
 
 
-<FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="25.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="0.0" prefWidth="552.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="greboreda.agendafx.controllers.PersonInputController">
+<FlowPane columnHalignment="CENTER" hgap="20.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="greboreda.agendafx.controllers.PersonInputController">
    <children>
       <TextField fx:id="firstNameInput" promptText="First name" />
       <TextField fx:id="lastNameInput" promptText="Last name" />
       <Button mnemonicParsing="false" onAction="#onSavePerson" text="Save" />
    </children>
    <padding>
-      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+      <Insets bottom="10.0" top="10.0" />
    </padding>
 </FlowPane>
