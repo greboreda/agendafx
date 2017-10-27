@@ -5,15 +5,13 @@ import javafx.fxml.FXMLLoader;
 import java.io.IOException;
 import java.net.URL;
 
-public interface CustomComponent {
+public class ComponentFactory {
 
-	String getFxmlPath();
-
-	default void init() {
-		final URL resource = getClass().getResource(getFxmlPath());
+	public static void initializeComponent(Object component, String path) {
+		final URL resource = ComponentFactory.class.getResource(path);
 		final FXMLLoader fxmlLoader = new FXMLLoader(resource);
-		fxmlLoader.setRoot(this);
-		fxmlLoader.setController(this);
+		fxmlLoader.setRoot(component);
+		fxmlLoader.setController(component);
 		try {
 			fxmlLoader.load();
 		} catch (IOException e) {

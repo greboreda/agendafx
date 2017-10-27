@@ -1,6 +1,6 @@
 package greboreda.agendafx.components.personinput;
 
-import greboreda.agendafx.components.CustomComponent;
+import greboreda.agendafx.components.ComponentFactory;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.Event;
@@ -11,7 +11,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
 
 
-public class PersonInput extends FlowPane implements CustomComponent {
+public class PersonInput extends FlowPane {
+
+	private static final String PERSON_INPUT_FXML = "/greboreda/agendafx/components/personinput.fxml";
 
 	@FXML
 	private TextField firstNameInput;
@@ -23,7 +25,7 @@ public class PersonInput extends FlowPane implements CustomComponent {
 	protected ObjectProperty<EventHandler<SavePersonEvent>> onSavePerson = new SimpleObjectProperty<>();
 
 	public PersonInput() {
-		init();
+		ComponentFactory.initializeComponent(this, PERSON_INPUT_FXML);
 		saveButton.setOnMouseClicked(this::onSave);
 	}
 
@@ -49,8 +51,4 @@ public class PersonInput extends FlowPane implements CustomComponent {
 		return onSavePerson.get();
 	}
 
-	@Override
-	public String getFxmlPath() {
-		return "/greboreda/agendafx/components/personinput.fxml";
-	}
 }
