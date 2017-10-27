@@ -32,7 +32,7 @@ public class PersonSaverTest {
 	}
 
 	@Test
-	public void when_saving_person_id_should_not_be_null() {
+	public void when_saving_person_id_should_be_null() {
 		final Person person = Person.create()
 				.withId(123)
 				.withFirstName("John")
