@@ -1,7 +1,7 @@
 package greboreda.agendafx.controllers;
 
 import de.felixroske.jfxsupport.FXMLController;
-import greboreda.agendafx.business.PersonCreator;
+import greboreda.agendafx.business.PersonSaver;
 import greboreda.agendafx.business.PersonFinder;
 import greboreda.agendafx.components.personinput.PersonInput;
 import greboreda.agendafx.components.personinput.PersonToCreate;
@@ -19,10 +19,14 @@ public class MainController {
 
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
+	private final PersonSaver personSaver;
+	private final PersonFinder personFinder;
+
 	@Inject
-	private PersonCreator personCreator;
-	@Inject
-	private PersonFinder personFinder;
+	public MainController(PersonSaver personSaver, PersonFinder personFinder) {
+		this.personSaver = personSaver;
+		this.personFinder = personFinder;
+	}
 
 	@FXML
 	private PersonInput personInput;
@@ -43,7 +47,7 @@ public class MainController {
 				.withLastName(personToCreate.lastName)
 				.build();
 		logger.info("Lets save person: " + person);
-		personCreator.createPerson(person);
+		personSaver.savePerson(person);
 		refreshPersonsOutput();
 	}
 

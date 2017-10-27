@@ -1,6 +1,6 @@
 package greboreda.agendafx.components.personoutput;
 
-import greboreda.agendafx.components.ComponentFactory;
+import greboreda.agendafx.components.ComponentInitializer;
 import greboreda.agendafx.domain.Person;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,7 +20,7 @@ public class PersonsOutput extends FlowPane {
 	private final ObservableList<Person> showablePersons = FXCollections.observableArrayList();
 
 	public PersonsOutput() {
-		ComponentFactory.initializeComponent(this, PERSONS_OUTPUT_FXML);
+		ComponentInitializer.init(this, PERSONS_OUTPUT_FXML);
 		personsTable.setItems(showablePersons);
 	}
 

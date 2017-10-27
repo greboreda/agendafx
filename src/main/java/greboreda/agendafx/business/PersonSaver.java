@@ -11,16 +11,16 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 @Named
-public class PersonCreator {
+public class PersonSaver {
 
 	private final PersonDAO personDAO;
 
 	@Inject
-	public PersonCreator(PersonDAO personDAO) {
+	public PersonSaver(PersonDAO personDAO) {
 		this.personDAO = personDAO;
 	}
 
-	public void createPerson(Person person) {
+	public void savePerson(Person person) {
 		Validate.notNull(person, "person cannot be null");
 		final PersonVO personVO = PersonMapper.mapToVO(person);
 		personDAO.save(personVO);
