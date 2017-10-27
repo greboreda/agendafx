@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.FlowPane?>
+
+
+<fx:root  type="FlowPane" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
+    <FlowPane columnHalignment="CENTER" hgap="20.0">
+        <children>
+            <TextField fx:id="firstNameInput" promptText="First name" />
+            <TextField fx:id="lastNameInput" promptText="Last name" />
+            <Button fx:id="saveButton" mnemonicParsing="false" text="Save" />
+        </children>
+        <padding>
+            <Insets bottom="10.0" top="10.0" />
+        </padding>
+    </FlowPane>
+</fx:root>
+

@@ -7,6 +7,9 @@
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.layout.VBox?>
 
+<?import greboreda.agendafx.components.personinput.PersonInput?>
+
+<?import greboreda.agendafx.components.personoutput.PersonsOutput?>
 <VBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="greboreda.agendafx.controllers.MainController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
@@ -50,8 +53,8 @@
     </MenuBar>
     <VBox>
       <children>
-        <fx:include source="personsoutput.fxml" />
-        <fx:include source="personinput.fxml" />
+        <PersonsOutput fx:id="personsOutput" />
+        <PersonInput fx:id="personInput" onSavePerson="#onSavePerson" />
       </children>
        <VBox.margin>
           <Insets left="10.0" right="10.0" top="10.0" />
