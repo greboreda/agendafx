@@ -5,7 +5,7 @@ public class PersonToCreate {
 	public final String firstName;
 	public final String lastName;
 
-	PersonToCreate(String firstName, String lastName) {
+	public PersonToCreate(String firstName, String lastName) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}

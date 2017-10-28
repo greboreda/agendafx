@@ -9,7 +9,7 @@ public class SavePersonEvent extends Event {
 
 	private PersonToCreate personToCreate;
 
-	SavePersonEvent(PersonToCreate personToCreate) {
+	public SavePersonEvent(PersonToCreate personToCreate) {
 		super(eventType);
 		this.personToCreate = personToCreate;
 	}

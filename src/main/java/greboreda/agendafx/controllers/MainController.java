@@ -29,9 +29,10 @@ public class MainController {
 	}
 
 	@FXML
-	private PersonInput personInput;
+	protected PersonInput personInput;
 	@FXML
-	private PersonsOutput personsOutput;
+	protected PersonsOutput personsOutput;
+
 
 	@FXML
 	public void initialize() {

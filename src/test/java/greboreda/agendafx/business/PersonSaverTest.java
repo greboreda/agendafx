@@ -10,6 +10,7 @@ import org.mockito.ArgumentCaptor;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -71,9 +72,11 @@ public class PersonSaverTest {
 		final ArgumentCaptor<PersonVO> captor = ArgumentCaptor.forClass(PersonVO.class);
 		verify(personDAO).save(captor.capture());
 		final PersonVO personVO = captor.getValue();
-		assertThat(personVO.getId(), is(nullValue()));
-		assertThat(personVO.getFirstName(), is("John"));
-		assertThat(personVO.getLastName(), is("Doe"));
+		assertAll(
+				() -> assertThat(personVO.getId(), is(nullValue())),
+				() -> assertThat(personVO.getFirstName(), is("John")),
+				() -> assertThat(personVO.getLastName(), is("Doe"))
+		);
 	}
 
 }
