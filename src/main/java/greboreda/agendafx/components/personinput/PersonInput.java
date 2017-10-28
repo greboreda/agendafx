@@ -13,7 +13,7 @@ import javafx.scene.layout.FlowPane;
 
 public class PersonInput extends FlowPane {
 
-	private static final String PERSON_INPUT_FXML = "/greboreda/agendafx/components/personinput.fxml";
+	private static final String PERSON_INPUT_FXML = "personinput.fxml";
 
 	@FXML
 	private TextField firstNameInput;

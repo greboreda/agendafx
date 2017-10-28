@@ -12,7 +12,7 @@ import java.util.List;
 
 public class PersonsOutput extends FlowPane {
 
-	private static final String PERSONS_OUTPUT_FXML = "/greboreda/agendafx/components/personsoutput.fxml";
+	private static final String PERSONS_OUTPUT_FXML = "personsoutput.fxml";
 
 	@FXML
 	private TableView<Person> personsTable;

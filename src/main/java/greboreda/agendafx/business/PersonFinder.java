@@ -7,6 +7,7 @@ import greboreda.agendafx.persistence.vo.PersonVO;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 import static java.util.stream.Collectors.toList;
@@ -23,12 +24,12 @@ public class PersonFinder {
 
 	public List<Person> findAllPersons() {
 		final Iterable<PersonVO> all = personDAO.findAll();
-		return StreamSupport.stream(all.spliterator(), false)
-				.map(vo -> Person.create()
-						.withId(vo.getId())
-						.withFirstName(vo.getFirstName())
-						.withLastName(vo.getLastName())
-						.build())
+		final Stream<PersonVO> personVOStream = StreamSupport.stream(all.spliterator(), false);
+		return personVOStream.map(vo -> Person.create()
+					.withId(vo.getId())
+					.withFirstName(vo.getFirstName())
+					.withLastName(vo.getLastName())
+					.build())
 				.collect(toList());
 	}
 }
