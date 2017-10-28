@@ -10,7 +10,7 @@
 <?import greboreda.agendafx.components.personinput.PersonInput?>
 <?import greboreda.agendafx.components.personoutput.PersonsOutput?>
 
-<VBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="greboreda.agendafx.controllers.MainController">
+<VBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="greboreda.agendafx.controllers.MainController">
   <MenuBar VBox.vgrow="NEVER">
     <Menu mnemonicParsing="false" text="File">
       <MenuItem mnemonicParsing="false" text="Open…"/>

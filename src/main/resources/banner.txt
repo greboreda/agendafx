@@ -1,0 +1,11 @@
+${AnsiColor.WHITE}                            _      ${AnsiColor.BRIGHT_CYAN}________   __
+${AnsiColor.WHITE}                           | |     ${AnsiColor.BRIGHT_CYAN}|  ___\ \ / /
+${AnsiColor.WHITE}  __ _  __ _  ___ _ __   __| | __ _${AnsiColor.BRIGHT_CYAN}| |_   \ V /
+${AnsiColor.WHITE} / _` |/ _` |/ _ \ '_ \ / _` |/ _` ${AnsiColor.BRIGHT_CYAN}|  _|  /   \
+${AnsiColor.WHITE}| (_| | (_| |  __/ | | | (_| | (_| ${AnsiColor.BRIGHT_CYAN}| |   / /^\ \
+${AnsiColor.WHITE} \__,_|\__, |\___|_| |_|\__,_|\__,_${AnsiColor.BRIGHT_CYAN}\_|   \/   \/
+${AnsiColor.WHITE}        __/ |                      ${AnsiColor.BRIGHT_CYAN}
+${AnsiColor.WHITE}       |___/                       ${AnsiColor.BRIGHT_RED} by ${info.author}
+
+${AnsiColor.BRIGHT_YELLOW}:: Running Spring Boot ${spring-boot.version} ::${AnsiStyle.NORMAL}
+

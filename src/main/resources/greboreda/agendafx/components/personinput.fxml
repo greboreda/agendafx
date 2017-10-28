@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.FlowPane?>
 
-<fx:root alignment="CENTER" columnHalignment="CENTER" hgap="20.0" type="FlowPane" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="CENTER" columnHalignment="CENTER" hgap="20.0" type="FlowPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <TextField fx:id="firstNameInput" promptText="First name" />
     <TextField fx:id="lastNameInput" promptText="Last name" />
     <Button fx:id="saveButton" mnemonicParsing="false" text="Save" />

@@ -1,3 +1,6 @@
+info:
+  author: greboreda
+
 javafx:
   title: ${spring.application.name}
   stage:
@@ -6,6 +9,8 @@ javafx:
 spring:
   application:
     name: agendaFx
+  main:
+    banner-mode: console
   h2:
     console:
       enabled: true
@@ -22,5 +27,7 @@ spring:
 logging:
   file: logs/${spring.application.name}.log
   level:
+    root: WARN
+    greboreda.agendafx: INFO
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
