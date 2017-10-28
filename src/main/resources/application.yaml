@@ -1,14 +1,15 @@
 info:
   author: greboreda
+  app-name: agendaFx
 
 javafx:
-  title: ${spring.application.name}
+  title: ${info.app-name}
   stage:
     resizable: true
 
 spring:
   application:
-    name: agendaFx
+    name: ${info.app-name}
   main:
     banner-mode: console
   h2:
@@ -25,9 +26,8 @@ spring:
     driver-class-name: org.h2.Driver
 
 logging:
-  file: logs/${spring.application.name}.log
+  file: logs/${info.app-name}.log
   level:
     root: WARN
     greboreda.agendafx: INFO
     org.hibernate.SQL: DEBUG
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
