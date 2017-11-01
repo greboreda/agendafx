@@ -8,6 +8,7 @@ import greboreda.agendafx.components.personinput.PersonInput;
 import greboreda.agendafx.components.personinput.PersonToCreate;
 import greboreda.agendafx.components.personinput.SavePersonEvent;
 import greboreda.agendafx.components.personoutput.PersonsOutput;
+import greboreda.agendafx.components.personoutput.SearchPersonsEvent;
 import greboreda.agendafx.components.personoutput.SelectPersonEvent;
 import greboreda.agendafx.components.phonesoutput.PhonesOutput;
 import greboreda.agendafx.domain.Person;
@@ -46,7 +47,7 @@ public class MainController {
 	@FXML
 	public void initialize() {
 		logger.info("Initializing");
-		refreshPersonsOutput();
+		refreshPersonsOutput(personFinder.findAllPersons());
 	}
 
 	public void onSavePerson(SavePersonEvent savePersonEvent) {
@@ -58,11 +59,18 @@ public class MainController {
 				.build();
 		logger.info("Lets save person: " + person);
 		personSaver.savePerson(person);
-		refreshPersonsOutput();
+		refreshPersonsOutput(personFinder.findAllPersons());
 	}
 
 	public void onSelectPerson(SelectPersonEvent selectPersonEvent) {
 		refreshPhonesOutput(selectPersonEvent.getPersonId());
+	}
+
+	public void onSearchPersons(SearchPersonsEvent searchPersonsEvent) {
+		final String search = searchPersonsEvent.getSearch();
+		logger.debug("Lets search persons like " + search);
+		final List<Person> persons = personFinder.findPersonsByFreeSearch(search);
+		refreshPersonsOutput(persons);
 	}
 
 	private void refreshPhonesOutput(Integer personId) {
@@ -71,9 +79,9 @@ public class MainController {
 		phonesOutput.refresh(phones);
 	}
 
-	private void refreshPersonsOutput() {
+	private void refreshPersonsOutput(List<Person> persons) {
 		logger.info("Refreshing persons output!");
-		personsOutput.refresh(personFinder.findAllPersons());
+		personsOutput.refresh(persons);
 		phonesOutput.clear();
 	}
 

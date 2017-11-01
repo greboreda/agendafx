@@ -30,4 +30,4 @@ logging:
   level:
     root: WARN
     greboreda.agendafx: DEBUG
-    org.hibernate.SQL: DEBUG
+    org.hibernate.SQL: WARN

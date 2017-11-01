@@ -5,6 +5,17 @@ import greboreda.agendafx.persistence.vo.PersonVO;
 
 public class PersonMapper {
 
+	public static Person mapToBO(PersonVO personVO) {
+		if(personVO == null) {
+			return null;
+		}
+		return Person.create()
+				.withId(personVO.getId())
+				.withFirstName(personVO.getFirstName())
+				.withLastName(personVO.getLastName())
+				.build();
+	}
+
 	public static PersonVO mapToVO(Person person) {
 		if(person == null) {
 			return null;

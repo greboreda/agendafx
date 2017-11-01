@@ -30,7 +30,7 @@
       <Insets left="10.0" right="10.0" top="10.0" />
     </VBox.margin>
     <HBox>
-      <PersonsOutput fx:id="personsOutput" onSelectPerson="#onSelectPerson"/>
+      <PersonsOutput fx:id="personsOutput" onSelectPerson="#onSelectPerson" onSearchPersons="#onSearchPersons"/>
       <PhonesOutput fx:id="phonesOutput"/>
     </HBox>
     <PersonInput fx:id="personInput" onSavePerson="#onSavePerson" />
