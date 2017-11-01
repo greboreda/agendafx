@@ -1,4 +1,4 @@
-package greboreda.agendafx.business;
+package greboreda.agendafx.business.person;
 
 import greboreda.agendafx.domain.Person;
 import greboreda.agendafx.persistence.dao.PersonDAO;

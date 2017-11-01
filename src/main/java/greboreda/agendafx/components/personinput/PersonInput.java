@@ -41,12 +41,12 @@ public class PersonInput extends FlowPane {
 		return new PersonToCreate(firstName, lastName);
 	}
 
-	public final void setOnSavePerson(EventHandler<SavePersonEvent> savePersonEvent) {
-		this.onSavePerson.set(savePersonEvent);
-	}
-
 	public final EventHandler<SavePersonEvent> getOnSavePerson() {
 		return onSavePerson.get();
+	}
+
+	public final void setOnSavePerson(EventHandler<SavePersonEvent> savePersonEventHandler) {
+		this.onSavePerson.set(savePersonEventHandler);
 	}
 
 }

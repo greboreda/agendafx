@@ -13,17 +13,21 @@ spring:
   main:
     banner-mode: console
   jpa:
+    generate-ddl: false
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
   datasource:
     url: jdbc:h2:file:~/agendafx
     username: sa
     password:
     driver-class-name: org.h2.Driver
+    initialize: true
 
 logging:
   file: logs/${info.app-name}.log
   level:
     root: WARN
-    greboreda.agendafx: INFO
+    greboreda.agendafx: DEBUG
     org.hibernate.SQL: DEBUG

@@ -1,7 +1,8 @@
 package greboreda.agendafx.controllers;
 
-import greboreda.agendafx.business.PersonFinder;
-import greboreda.agendafx.business.PersonSaver;
+import greboreda.agendafx.business.person.PersonFinder;
+import greboreda.agendafx.business.person.PersonSaver;
+import greboreda.agendafx.business.phone.PhoneFinder;
 import greboreda.agendafx.components.personinput.PersonInput;
 import greboreda.agendafx.components.personinput.PersonToCreate;
 import greboreda.agendafx.components.personinput.SavePersonEvent;
@@ -33,13 +34,15 @@ public class MainControllerTest {
 	private PersonFinder personFinder;
 	@Mock
 	private PersonSaver personSaver;
+	@Mock
+	private PhoneFinder phoneFinder;
 
 	private MainController mainController;
 
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
-		mainController = new MainController(personSaver, personFinder);
+		mainController = new MainController(personSaver, personFinder, phoneFinder);
 		mainController.personsOutput = personsOutput;
 		mainController.personInput = personInput;
 	}

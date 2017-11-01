@@ -1,5 +1,6 @@
 package greboreda.agendafx.business;
 
+import greboreda.agendafx.business.person.PersonFinder;
 import greboreda.agendafx.domain.Person;
 import greboreda.agendafx.persistence.dao.PersonDAO;
 import greboreda.agendafx.persistence.vo.PersonVO;
