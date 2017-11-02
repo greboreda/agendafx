@@ -1,4 +1,4 @@
-package greboreda.agendafx.domain;
+package greboreda.agendafx.domain.person;
 
 public class Person {
 

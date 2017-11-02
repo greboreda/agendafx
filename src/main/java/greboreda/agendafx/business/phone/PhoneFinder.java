@@ -1,6 +1,6 @@
 package greboreda.agendafx.business.phone;
 
-import greboreda.agendafx.domain.Phone;
+import greboreda.agendafx.domain.phone.Phone;
 import greboreda.agendafx.persistence.dao.PhoneDAO;
 import greboreda.agendafx.persistence.mappers.PhoneMapper;
 import greboreda.agendafx.persistence.vo.PhoneVO;

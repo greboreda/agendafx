@@ -1,6 +1,8 @@
-package greboreda.agendafx.components.personinput;
+package greboreda.agendafx.components.persons;
 
 import greboreda.agendafx.components.ComponentInitializer;
+import greboreda.agendafx.components.persons.dto.PersonToCreate;
+import greboreda.agendafx.components.persons.events.SavePersonEvent;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.Event;

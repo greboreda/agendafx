@@ -1,7 +1,7 @@
 package greboreda.agendafx.business;
 
 import greboreda.agendafx.business.person.PersonFinder;
-import greboreda.agendafx.domain.Person;
+import greboreda.agendafx.domain.person.Person;
 import greboreda.agendafx.persistence.dao.PersonDAO;
 import greboreda.agendafx.persistence.vo.PersonVO;
 import org.junit.Before;
@@ -32,7 +32,7 @@ public class PersonFinderTest {
 	@Test
 	public void should_return_all_persisted_persons_when_find_all_persons() {
 
-		when(personDAO.findAll()).thenReturn(Arrays.asList(
+		when(personDAO.findAllPersonsSorted()).thenReturn(Arrays.asList(
 				createPersonVOWithId(1),
 				createPersonVOWithId(2)
 		));

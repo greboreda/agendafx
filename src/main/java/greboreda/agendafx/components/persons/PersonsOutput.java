@@ -1,7 +1,9 @@
-package greboreda.agendafx.components.personoutput;
+package greboreda.agendafx.components.persons;
 
 import greboreda.agendafx.components.ComponentInitializer;
-import greboreda.agendafx.domain.Person;
+import greboreda.agendafx.components.persons.events.SearchPersonsEvent;
+import greboreda.agendafx.components.persons.events.SelectPersonEvent;
+import greboreda.agendafx.domain.person.Person;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -58,6 +60,7 @@ public class PersonsOutput extends VBox {
 		personsView.getSelectionModel().selectedItemProperty().addListener((observableValue, oldVal, newVal) -> {
 			final Person person = observableValue.getValue();
 			if(person != null) {
+				logger.debug("selected person: " + person);
 				onSelectPerson.get().handle(new SelectPersonEvent(person.getId()));
 			}
 		});

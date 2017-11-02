@@ -1,7 +1,7 @@
 package greboreda.agendafx.business;
 
 import greboreda.agendafx.business.person.PersonSaver;
-import greboreda.agendafx.domain.Person;
+import greboreda.agendafx.domain.person.Person;
 import greboreda.agendafx.persistence.dao.PersonDAO;
 import greboreda.agendafx.persistence.vo.PersonVO;
 import org.junit.Before;

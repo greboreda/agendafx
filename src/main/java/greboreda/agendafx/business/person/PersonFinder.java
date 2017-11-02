@@ -1,15 +1,13 @@
 package greboreda.agendafx.business.person;
 
-import greboreda.agendafx.domain.Person;
+import greboreda.agendafx.domain.person.Person;
 import greboreda.agendafx.persistence.dao.PersonDAO;
 import greboreda.agendafx.persistence.mappers.PersonMapper;
 import greboreda.agendafx.persistence.vo.PersonVO;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -27,9 +25,8 @@ public class PersonFinder {
 	}
 
 	public List<Person> findAllPersons() {
-		final Iterable<PersonVO> all = personDAO.findAll();
-		final Stream<PersonVO> personVOStream = StreamSupport.stream(all.spliterator(), false);
-		return personVOStream.map(PersonMapper::mapToBO)
+		return personDAO.findAllPersonsSorted().stream()
+				.map(PersonMapper::mapToBO)
 				.collect(toList());
 	}
 

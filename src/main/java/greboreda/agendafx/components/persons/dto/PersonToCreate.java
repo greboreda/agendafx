@@ -1,4 +1,4 @@
-package greboreda.agendafx.components.personinput;
+package greboreda.agendafx.components.persons.dto;
 
 public class PersonToCreate {
 

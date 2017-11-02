@@ -1,6 +1,6 @@
 package greboreda.agendafx.persistence.mappers;
 
-import greboreda.agendafx.domain.Person;
+import greboreda.agendafx.domain.person.Person;
 import greboreda.agendafx.persistence.vo.PersonVO;
 
 public class PersonMapper {

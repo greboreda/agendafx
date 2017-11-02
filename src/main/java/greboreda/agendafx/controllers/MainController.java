@@ -4,21 +4,23 @@ import de.felixroske.jfxsupport.FXMLController;
 import greboreda.agendafx.business.person.PersonSaver;
 import greboreda.agendafx.business.person.PersonFinder;
 import greboreda.agendafx.business.phone.PhoneFinder;
-import greboreda.agendafx.components.personinput.PersonInput;
-import greboreda.agendafx.components.personinput.PersonToCreate;
-import greboreda.agendafx.components.personinput.SavePersonEvent;
-import greboreda.agendafx.components.personoutput.PersonsOutput;
-import greboreda.agendafx.components.personoutput.SearchPersonsEvent;
-import greboreda.agendafx.components.personoutput.SelectPersonEvent;
-import greboreda.agendafx.components.phonesoutput.PhonesOutput;
-import greboreda.agendafx.domain.Person;
-import greboreda.agendafx.domain.Phone;
+import greboreda.agendafx.components.persons.PersonInput;
+import greboreda.agendafx.components.persons.dto.PersonToCreate;
+import greboreda.agendafx.components.persons.events.SavePersonEvent;
+import greboreda.agendafx.components.persons.PersonsOutput;
+import greboreda.agendafx.components.persons.events.SearchPersonsEvent;
+import greboreda.agendafx.components.persons.events.SelectPersonEvent;
+import greboreda.agendafx.components.phones.PhonesOutput;
+import greboreda.agendafx.domain.person.Person;
+import greboreda.agendafx.domain.phone.Phone;
 import javafx.fxml.FXML;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import java.util.List;
+
+import static java.util.stream.Collectors.joining;
 
 @FXMLController
 public class MainController {
@@ -57,7 +59,7 @@ public class MainController {
 				.withFirstName(personToCreate.firstName)
 				.withLastName(personToCreate.lastName)
 				.build();
-		logger.info("Lets save person: " + person);
+		logger.debug("Lets save person: " + person);
 		personSaver.savePerson(person);
 		refreshPersonsOutput(personFinder.findAllPersons());
 	}
@@ -74,13 +76,13 @@ public class MainController {
 	}
 
 	private void refreshPhonesOutput(Integer personId) {
-		logger.info("Refreshing phones output!");
 		final List<Phone> phones = phoneFinder.findPhonesByPersonId(personId);
+		logger.debug(String.format("Refreshing phones for person with id %s", personId));
 		phonesOutput.refresh(phones);
 	}
 
 	private void refreshPersonsOutput(List<Person> persons) {
-		logger.info("Refreshing persons output!");
+		logger.debug("Refreshing persons output!");
 		personsOutput.refresh(persons);
 		phonesOutput.clear();
 	}

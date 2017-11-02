@@ -3,11 +3,12 @@ package greboreda.agendafx.controllers;
 import greboreda.agendafx.business.person.PersonFinder;
 import greboreda.agendafx.business.person.PersonSaver;
 import greboreda.agendafx.business.phone.PhoneFinder;
-import greboreda.agendafx.components.personinput.PersonInput;
-import greboreda.agendafx.components.personinput.PersonToCreate;
-import greboreda.agendafx.components.personinput.SavePersonEvent;
-import greboreda.agendafx.components.personoutput.PersonsOutput;
-import greboreda.agendafx.domain.Person;
+import greboreda.agendafx.components.persons.PersonInput;
+import greboreda.agendafx.components.persons.dto.PersonToCreate;
+import greboreda.agendafx.components.persons.events.SavePersonEvent;
+import greboreda.agendafx.components.persons.PersonsOutput;
+import greboreda.agendafx.components.phones.PhonesOutput;
+import greboreda.agendafx.domain.person.Person;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -31,6 +32,8 @@ public class MainControllerTest {
 	@Mock
 	private PersonsOutput personsOutput;
 	@Mock
+	private PhonesOutput phonesOutput;
+	@Mock
 	private PersonFinder personFinder;
 	@Mock
 	private PersonSaver personSaver;
@@ -45,6 +48,7 @@ public class MainControllerTest {
 		mainController = new MainController(personSaver, personFinder, phoneFinder);
 		mainController.personsOutput = personsOutput;
 		mainController.personInput = personInput;
+		mainController.phonesOutput = phonesOutput;
 	}
 
 	@Test
