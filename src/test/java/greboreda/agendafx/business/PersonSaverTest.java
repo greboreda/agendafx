@@ -2,6 +2,7 @@ package greboreda.agendafx.business;
 
 import greboreda.agendafx.business.person.PersonSaver;
 import greboreda.agendafx.domain.person.Person;
+import greboreda.agendafx.domain.person.PersonToSave;
 import greboreda.agendafx.persistence.dao.PersonDAO;
 import greboreda.agendafx.persistence.vo.PersonVO;
 import org.junit.Before;
@@ -34,42 +35,27 @@ public class PersonSaverTest {
 	}
 
 	@Test
-	public void when_saving_person_id_should_be_null() {
-		final Person person = Person.create()
-				.withId(123)
-				.withFirstName("John")
-				.withLastName("Doe")
-				.build();
-		assertThrows(IllegalArgumentException.class, () -> personSaver.savePerson(person));
-	}
-
-	@Test
 	public void when_saving_person_first_name_should_not_be_blank() {
-		final Person person = Person.create()
-				.withId(null)
+		final PersonToSave personToSave = PersonToSave.create()
 				.withFirstName(" ")
-				.withLastName("Doe")
-				.build();
-		assertThrows(IllegalArgumentException.class, () -> personSaver.savePerson(person));
+				.withLastName("Doe");
+		assertThrows(IllegalArgumentException.class, () -> personSaver.savePerson(personToSave));
 	}
 
 	@Test
 	public void when_saving_person_last_name_should_not_be_blank() {
-		final Person person = Person.create()
-				.withId(null)
+		final PersonToSave personToSave = PersonToSave.create()
 				.withFirstName("John")
-				.withLastName("  ")
-				.build();
-		assertThrows(IllegalArgumentException.class, () -> personSaver.savePerson(person));
+				.withLastName("  ");
+		assertThrows(IllegalArgumentException.class, () -> personSaver.savePerson(personToSave));
 	}
 
 	@Test
 	public void should_persist_person_with_same_data() {
-		personSaver.savePerson(Person.create()
-				.withId(null)
+		final PersonToSave personToSave = PersonToSave.create()
 				.withFirstName("John")
-				.withLastName("Doe")
-				.build());
+				.withLastName("Doe");
+		personSaver.savePerson(personToSave);
 		final ArgumentCaptor<PersonVO> captor = ArgumentCaptor.forClass(PersonVO.class);
 		verify(personDAO).save(captor.capture());
 		final PersonVO personVO = captor.getValue();

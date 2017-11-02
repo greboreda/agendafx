@@ -11,6 +11,7 @@
 <?import greboreda.agendafx.components.persons.PersonsOutput?>
 <?import greboreda.agendafx.components.phones.PhonesOutput?>
 <?import greboreda.agendafx.components.persons.PersonInput?>
+<?import greboreda.agendafx.components.phones.PhoneInput?>
 <VBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="greboreda.agendafx.controllers.MainController">
   <MenuBar VBox.vgrow="NEVER">
     <Menu mnemonicParsing="false" text="File">
@@ -31,7 +32,10 @@
     </VBox.margin>
     <HBox spacing="10.0">
       <PersonsOutput fx:id="personsOutput" onSearchPersons="#onSearchPersons" onSelectPerson="#onSelectPerson" />
-      <PhonesOutput fx:id="phonesOutput" />
+      <VBox>
+        <PhonesOutput fx:id="phonesOutput" />
+        <PhoneInput fx:id="phoneInput" onSavePhone="#onSavePhone" />
+      </VBox>
     </HBox>
     <PersonInput fx:id="personInput" onSavePerson="#onSavePerson" />
   </VBox>

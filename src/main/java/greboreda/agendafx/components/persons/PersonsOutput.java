@@ -4,8 +4,6 @@ import greboreda.agendafx.components.ComponentInitializer;
 import greboreda.agendafx.components.persons.events.SearchPersonsEvent;
 import greboreda.agendafx.components.persons.events.SelectPersonEvent;
 import greboreda.agendafx.domain.person.Person;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -30,8 +28,8 @@ public class PersonsOutput extends VBox {
 	@FXML
 	private TextField searchPersonInput;
 
-	private final ObjectProperty<EventHandler<SelectPersonEvent>> onSelectPerson = new SimpleObjectProperty<>();
-	private final ObjectProperty<EventHandler<SearchPersonsEvent>> onSearchPersons = new SimpleObjectProperty<>();
+	private EventHandler<SelectPersonEvent> onSelectPersonHandler;
+	private EventHandler<SearchPersonsEvent> onSearchPersonsHandler;
 
 	private final ObservableList<Person> persons = FXCollections.observableArrayList();
 
@@ -40,7 +38,7 @@ public class PersonsOutput extends VBox {
 		initPersonsView();
 		searchPersonInput.textProperty().addListener((observable, oldValue, newValue) -> {
 			final SearchPersonsEvent event = new SearchPersonsEvent(newValue);
-			onSearchPersons.get().handle(event);
+			onSearchPersonsHandler.handle(event);
 		});
 	}
 
@@ -61,7 +59,7 @@ public class PersonsOutput extends VBox {
 			final Person person = observableValue.getValue();
 			if(person != null) {
 				logger.debug("selected person: " + person);
-				onSelectPerson.get().handle(new SelectPersonEvent(person.getId()));
+				onSelectPersonHandler.handle(new SelectPersonEvent(person.getId()));
 			}
 		});
 
@@ -74,19 +72,19 @@ public class PersonsOutput extends VBox {
 	}
 
 	public EventHandler<SelectPersonEvent> getOnSelectPerson() {
-		return onSelectPerson.get();
+		return onSelectPersonHandler;
 	}
 
 	public void setOnSelectPerson(EventHandler<SelectPersonEvent> selectPersonEventEventHandler) {
-		onSelectPerson.set(selectPersonEventEventHandler);
+		onSelectPersonHandler = selectPersonEventEventHandler;
 	}
 
 	public EventHandler<SearchPersonsEvent> getOnSearchPersons() {
-		return onSearchPersons.get();
+		return onSearchPersonsHandler;
 	}
 
-	public void setOnSearchPersons(EventHandler<SearchPersonsEvent> searchPersonsEventEventHandler) {
-		onSearchPersons.set(searchPersonsEventEventHandler);
+	public void setOnSearchPersons(EventHandler<SearchPersonsEvent> searchPersonsEventHandler) {
+		onSearchPersonsHandler = searchPersonsEventHandler;
 	}
 
 }

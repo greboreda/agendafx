@@ -51,4 +51,5 @@ public class PhonesOutput extends VBox {
 	public void clear() {
 		phones.clear();
 	}
+
 }

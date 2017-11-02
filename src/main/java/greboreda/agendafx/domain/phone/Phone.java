@@ -48,4 +48,14 @@ public class Phone {
 			return number -> prefix -> () -> new Phone(id, number, prefix);
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "Phone{" +
+				"id=" + id +
+				", number='" + number + '\'' +
+				", prefix='" + prefix + '\'' +
+				'}';
+	}
+
 }

@@ -1,6 +1,7 @@
 package greboreda.agendafx.persistence.mappers;
 
 import greboreda.agendafx.domain.person.Person;
+import greboreda.agendafx.domain.person.PersonToSave;
 import greboreda.agendafx.persistence.vo.PersonVO;
 
 public class PersonMapper {
@@ -26,4 +27,15 @@ public class PersonMapper {
 		personVO.setLastName(person.getLastName());
 		return personVO;
 	}
+
+	public static PersonVO mapToVO(PersonToSave personToSave) {
+		if(personToSave == null) {
+			return null;
+		}
+		final PersonVO personVO = new PersonVO();
+		personVO.setFirstName(personToSave.firstName);
+		personVO.setLastName(personToSave.lastName);
+		return personVO;
+	}
+
 }

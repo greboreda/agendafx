@@ -24,8 +24,8 @@ import java.util.Set;
 public class PhoneVO {
 
 	@Id
-	@SequenceGenerator(name = "PHONE_SEQ")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@SequenceGenerator(name = "PHONE_SEQ", sequenceName = "PHONE_SEQ", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PHONE_SEQ")
 	private Integer id;
 	@NotBlank
 	private String number;
@@ -36,7 +36,7 @@ public class PhoneVO {
 			joinColumns = {@JoinColumn(name = "PERSONID")},
 			inverseJoinColumns = {@JoinColumn(name = "PHONEID")}
 	)
-	private Set<PersonVO> personVO;
+	private Set<PersonVO> owners;
 
 	public Integer getId() {
 		return id;
@@ -62,11 +62,11 @@ public class PhoneVO {
 		this.prefix = prefix;
 	}
 
-	public Set<PersonVO> getPersonVO() {
-		return personVO;
+	public Set<PersonVO> getOwners() {
+		return owners;
 	}
 
-	public void setPersonVO(Set<PersonVO> personVO) {
-		this.personVO = personVO;
+	public void setOwners(Set<PersonVO> owners) {
+		this.owners = owners;
 	}
 }

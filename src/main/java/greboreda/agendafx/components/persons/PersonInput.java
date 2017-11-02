@@ -1,10 +1,8 @@
 package greboreda.agendafx.components.persons;
 
 import greboreda.agendafx.components.ComponentInitializer;
-import greboreda.agendafx.components.persons.dto.PersonToCreate;
+import greboreda.agendafx.domain.person.PersonToSave;
 import greboreda.agendafx.components.persons.events.SavePersonEvent;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -24,7 +22,7 @@ public class PersonInput extends FlowPane {
 	@FXML
 	private Button saveButton;
 
-	private ObjectProperty<EventHandler<SavePersonEvent>> onSavePerson = new SimpleObjectProperty<>();
+	private EventHandler<SavePersonEvent> onSavePersonHandler;
 
 	public PersonInput() {
 		ComponentInitializer.init(this, PERSON_INPUT_FXML);
@@ -32,23 +30,25 @@ public class PersonInput extends FlowPane {
 	}
 
 	private void onSave(Event event) {
-		final PersonToCreate personToCreate = retrievePersonToCreate();
-		final SavePersonEvent savePersonEvent = new SavePersonEvent(personToCreate);
-		onSavePerson.get().handle(savePersonEvent);
+		final PersonToSave personToSave = retrievePersonToSave();
+		final SavePersonEvent savePersonEvent = new SavePersonEvent(personToSave);
+		onSavePersonHandler.handle(savePersonEvent);
 	}
 
-	private PersonToCreate retrievePersonToCreate() {
+	private PersonToSave retrievePersonToSave() {
 		final String firstName = firstNameInput.getText();
 		final String lastName = lastNameInput.getText();
-		return new PersonToCreate(firstName, lastName);
+		return PersonToSave.create()
+				.withFirstName(firstName)
+				.withLastName(lastName);
 	}
 
 	public final EventHandler<SavePersonEvent> getOnSavePerson() {
-		return onSavePerson.get();
+		return onSavePersonHandler;
 	}
 
 	public final void setOnSavePerson(EventHandler<SavePersonEvent> savePersonEventHandler) {
-		this.onSavePerson.set(savePersonEventHandler);
+		this.onSavePersonHandler = savePersonEventHandler;
 	}
 
 }

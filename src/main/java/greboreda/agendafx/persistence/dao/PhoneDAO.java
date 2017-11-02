@@ -12,9 +12,15 @@ import java.util.List;
 public interface PhoneDAO extends CrudRepository<PhoneVO,Integer> {
 
 	@Query(	" select phone from PhoneVO as phone" +
-			" join fetch phone.personVO as person " +
-			" where person.id = :personId "
-	)
+			" join fetch phone.owners as persons " +
+			" where persons.id = :personId ")
 	List<PhoneVO> findPhonesByPersonId(@Param("personId") Integer personId);
 
+
+	@Query(	" select phone from PhoneVO as phone " +
+			" where phone.prefix = :phonePrefix " +
+			" and phone.number = :phoneNumber ")
+	PhoneVO findPhoneByPrefixAndNumber(
+			@Param("phonePrefix") String phonePrefix,
+			@Param("phoneNumber") String phoneNumber);
 }
