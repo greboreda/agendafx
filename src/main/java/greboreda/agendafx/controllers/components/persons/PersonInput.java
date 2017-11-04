@@ -13,8 +13,6 @@ import javafx.scene.layout.FlowPane;
 
 public class PersonInput extends FlowPane {
 
-	private static final String PERSON_INPUT_FXML = "personinput.fxml";
-
 	@FXML
 	private TextField firstNameInput;
 	@FXML
@@ -25,7 +23,7 @@ public class PersonInput extends FlowPane {
 	private EventHandler<SavePersonEvent> onSavePersonHandler;
 
 	public PersonInput() {
-		ViewLoader.load(this, PERSON_INPUT_FXML);
+		ViewLoader.load(this);
 		saveButton.setOnMouseClicked(this::onSave);
 	}
 

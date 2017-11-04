@@ -18,8 +18,6 @@ public class PhoneInput extends FlowPane {
 	@SuppressWarnings("unused")
 	private static final Logger logger = LoggerFactory.getLogger(PhoneInput.class);
 
-	private static final String PHONE_INPUT_FXML = "phoneinput.fxml";
-
 	@FXML
 	private TextField phonePrefixInput;
 	@FXML
@@ -31,7 +29,7 @@ public class PhoneInput extends FlowPane {
 	private Integer personIdToSavePhone;
 
 	public PhoneInput() {
-		ViewLoader.load(this, PHONE_INPUT_FXML);
+		ViewLoader.load(this);
 		saveButton.setDisable(true);
 		saveButton.setOnMouseClicked(this::onSavePhone);
 	}

@@ -21,8 +21,6 @@ public class PersonsOutput extends VBox {
 
 	private static final Logger logger = LoggerFactory.getLogger(PersonsOutput.class);
 
-	private static final String PERSONS_OUTPUT_FXML = "personsoutput.fxml";
-
 	@FXML
 	private ListView<Person> personsView;
 	@FXML
@@ -34,7 +32,7 @@ public class PersonsOutput extends VBox {
 	private final ObservableList<Person> persons = FXCollections.observableArrayList();
 
 	public PersonsOutput() {
-		ViewLoader.load(this, PERSONS_OUTPUT_FXML);
+		ViewLoader.load(this);
 		initPersonsView();
 		searchPersonInput.textProperty().addListener((observable, oldValue, newValue) -> {
 			final SearchPersonsEvent event = new SearchPersonsEvent(newValue);

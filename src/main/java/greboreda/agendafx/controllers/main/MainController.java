@@ -39,8 +39,6 @@ import static greboreda.agendafx.controllers.main.MainControllerUtils.manageSave
 @Component
 public class MainController extends VBox implements Initializable {
 
-	private static final String MAIN_FXML = "main.fxml";
-
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
 	private final PersonSaver personSaver;
@@ -80,7 +78,7 @@ public class MainController extends VBox implements Initializable {
 	}
 
 	public Parent build() throws IOException {
-		return ViewLoader.load(this, MAIN_FXML);
+		return ViewLoader.load(this);
 	}
 
 	void onSavePerson(SavePersonEvent savePersonEvent) {

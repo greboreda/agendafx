@@ -19,15 +19,13 @@ public class PhonesOutput extends VBox {
 	@SuppressWarnings("unused")
 	private static final Logger logger = LoggerFactory.getLogger(PhonesOutput.class);
 
-	private static final String PHONES_OUTPUT_FXML = "phonesoutput.fxml";
-
 	@FXML
 	private ListView<Phone> phonesView;
 
 	private final ObservableList<Phone> phones = FXCollections.observableArrayList();
 
 	public PhonesOutput() {
-		ViewLoader.load(this, PHONES_OUTPUT_FXML);
+		ViewLoader.load(this);
 		phonesView.setCellFactory(param -> new ListCell<Phone>() {
 			@Override
 			public void updateItem(Phone phone, boolean empty) {
