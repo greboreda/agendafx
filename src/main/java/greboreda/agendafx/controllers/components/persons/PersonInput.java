@@ -1,6 +1,6 @@
 package greboreda.agendafx.controllers.components.persons;
 
-import greboreda.agendafx.controllers.components.ViewLoader;
+import greboreda.agendafx.controllers.ViewLoader;
 import greboreda.agendafx.domain.person.PersonToSave;
 import greboreda.agendafx.controllers.components.persons.events.SavePersonEvent;
 import javafx.event.Event;

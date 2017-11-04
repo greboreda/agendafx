@@ -1,6 +1,6 @@
 package greboreda.agendafx.controllers.components.phones;
 
-import greboreda.agendafx.controllers.components.ViewLoader;
+import greboreda.agendafx.controllers.ViewLoader;
 import greboreda.agendafx.domain.phone.Phone;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

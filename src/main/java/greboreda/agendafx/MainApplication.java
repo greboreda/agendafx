@@ -9,14 +9,24 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 public class MainApplication extends Application {
 
+	private Scene mainScene;
+
+	@Override
+	public void init() throws Exception {
+		final MainController mainController = retrieveMainController();
+		final Parent mainParent = mainController.build();
+		this.mainScene = new Scene(mainParent);
+	}
+
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		final ConfigurableApplicationContext context = AgendaFxApplication.getContext();
-		final MainController mainController = context.getBean(MainController.class);
-		final Parent mainParent = mainController.build();
-		final Scene scene = new Scene(mainParent);
-		primaryStage.setScene(scene);
+		primaryStage.setScene(mainScene);
 		primaryStage.show();
+	}
+
+	private MainController retrieveMainController() {
+		final ConfigurableApplicationContext context = AgendaFxApplication.getContext();
+		return context.getBean(MainController.class);
 	}
 
 

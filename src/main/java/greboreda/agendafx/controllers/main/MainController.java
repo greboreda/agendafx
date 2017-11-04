@@ -6,6 +6,7 @@ import greboreda.agendafx.business.person.exceptions.SavePersonException;
 import greboreda.agendafx.business.phone.PhoneFinder;
 import greboreda.agendafx.business.phone.PhoneSaver;
 import greboreda.agendafx.business.phone.exceptions.SavePhoneException;
+import greboreda.agendafx.controllers.ViewLoader;
 import greboreda.agendafx.controllers.components.persons.PersonInput;
 import greboreda.agendafx.controllers.components.persons.PersonsOutput;
 import greboreda.agendafx.controllers.components.persons.events.SavePersonEvent;
@@ -19,23 +20,21 @@ import greboreda.agendafx.domain.person.PersonToSave;
 import greboreda.agendafx.domain.phone.Phone;
 import greboreda.agendafx.domain.phone.PhoneToSave;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
 import java.io.IOException;
-import java.net.URL;
 import java.util.List;
 
 import static greboreda.agendafx.controllers.main.MainControllerUtils.manageSavePersonError;
 import static greboreda.agendafx.controllers.main.MainControllerUtils.manageSavePhoneError;
 
 @Component
-public class MainController {
+public class MainController extends VBox {
 
 	private static final String MAIN_FXML = "main.fxml";
 
@@ -74,10 +73,7 @@ public class MainController {
 	}
 
 	public Parent build() throws IOException {
-		final URL resource = this.getClass().getResource(MAIN_FXML);
-		final FXMLLoader fxmlLoader = new FXMLLoader(resource);
-		fxmlLoader.setController(this);
-		return fxmlLoader.load();
+		return ViewLoader.load(this, MAIN_FXML);
 	}
 
 	void onSavePerson(SavePersonEvent savePersonEvent) {

@@ -12,7 +12,7 @@
 <?import greboreda.agendafx.controllers.components.phones.PhonesOutput?>
 <?import greboreda.agendafx.controllers.components.persons.PersonInput?>
 <?import greboreda.agendafx.controllers.components.phones.PhoneInput?>
-<VBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root type="VBox" alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
   <MenuBar VBox.vgrow="NEVER">
     <Menu mnemonicParsing="false" text="File">
       <MenuItem mnemonicParsing="false" text="Open…" />
@@ -39,4 +39,4 @@
     </HBox>
     <PersonInput fx:id="personInput"/>
   </VBox>
-</VBox>
+</fx:root>
