@@ -1,6 +1,6 @@
-package greboreda.agendafx.components.phones;
+package greboreda.agendafx.controllers.components.phones;
 
-import greboreda.agendafx.components.ComponentInitializer;
+import greboreda.agendafx.controllers.components.ViewLoader;
 import greboreda.agendafx.domain.phone.Phone;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,7 +27,7 @@ public class PhonesOutput extends VBox {
 	private final ObservableList<Phone> phones = FXCollections.observableArrayList();
 
 	public PhonesOutput() {
-		ComponentInitializer.init(this, PHONES_OUTPUT_FXML);
+		ViewLoader.load(this, PHONES_OUTPUT_FXML);
 		phonesView.setCellFactory(param -> new ListCell<Phone>() {
 			@Override
 			public void updateItem(Phone phone, boolean empty) {

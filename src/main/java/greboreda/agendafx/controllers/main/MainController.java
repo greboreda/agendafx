@@ -1,36 +1,43 @@
-package greboreda.agendafx.controllers;
+package greboreda.agendafx.controllers.main;
 
-import de.felixroske.jfxsupport.FXMLController;
 import greboreda.agendafx.business.person.PersonFinder;
 import greboreda.agendafx.business.person.PersonSaver;
 import greboreda.agendafx.business.person.exceptions.SavePersonException;
 import greboreda.agendafx.business.phone.PhoneFinder;
 import greboreda.agendafx.business.phone.PhoneSaver;
 import greboreda.agendafx.business.phone.exceptions.SavePhoneException;
-import greboreda.agendafx.components.persons.PersonInput;
-import greboreda.agendafx.components.persons.PersonsOutput;
-import greboreda.agendafx.components.persons.events.SavePersonEvent;
-import greboreda.agendafx.components.persons.events.SearchPersonsEvent;
-import greboreda.agendafx.components.persons.events.SelectPersonEvent;
-import greboreda.agendafx.components.phones.PhoneInput;
-import greboreda.agendafx.components.phones.PhonesOutput;
-import greboreda.agendafx.components.phones.events.SavePhoneEvent;
+import greboreda.agendafx.controllers.components.persons.PersonInput;
+import greboreda.agendafx.controllers.components.persons.PersonsOutput;
+import greboreda.agendafx.controllers.components.persons.events.SavePersonEvent;
+import greboreda.agendafx.controllers.components.persons.events.SearchPersonsEvent;
+import greboreda.agendafx.controllers.components.persons.events.SelectPersonEvent;
+import greboreda.agendafx.controllers.components.phones.PhoneInput;
+import greboreda.agendafx.controllers.components.phones.PhonesOutput;
+import greboreda.agendafx.controllers.components.phones.events.SavePhoneEvent;
 import greboreda.agendafx.domain.person.Person;
 import greboreda.agendafx.domain.person.PersonToSave;
 import greboreda.agendafx.domain.phone.Phone;
 import greboreda.agendafx.domain.phone.PhoneToSave;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
+import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 
-import static greboreda.agendafx.controllers.MainControllerUtils.manageSavePersonError;
-import static greboreda.agendafx.controllers.MainControllerUtils.manageSavePhoneError;
+import static greboreda.agendafx.controllers.main.MainControllerUtils.manageSavePersonError;
+import static greboreda.agendafx.controllers.main.MainControllerUtils.manageSavePhoneError;
 
-@FXMLController
+@Component
 public class MainController {
+
+	private static final String MAIN_FXML = "main.fxml";
 
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
@@ -48,21 +55,32 @@ public class MainController {
 	}
 
 	@FXML
-	protected PersonInput personInput;
+	PersonInput personInput;
 	@FXML
-	protected PersonsOutput personsOutput;
+	PersonsOutput personsOutput;
 	@FXML
-	protected PhonesOutput phonesOutput;
+	PhonesOutput phonesOutput;
 	@FXML
-	protected PhoneInput phoneInput;
+	PhoneInput phoneInput;
 
 	@FXML
-	public void initialize() {
+	void initialize() {
 		logger.info("Initializing");
+		personsOutput.setOnSearchPersons(this::onSearchPersons);
+		personsOutput.setOnSelectPerson(this::onSelectPerson);
+		phoneInput.setOnSavePhone(this::onSavePhone);
+		personInput.setOnSavePerson(this::onSavePerson);
 		refreshPersonsOutput(personFinder.findAllPersons());
 	}
 
-	public void onSavePerson(SavePersonEvent savePersonEvent) {
+	public Parent build() throws IOException {
+		final URL resource = this.getClass().getResource(MAIN_FXML);
+		final FXMLLoader fxmlLoader = new FXMLLoader(resource);
+		fxmlLoader.setController(this);
+		return fxmlLoader.load();
+	}
+
+	void onSavePerson(SavePersonEvent savePersonEvent) {
 		final PersonToSave personToSave = savePersonEvent.getpersonToSave();
 		logger.debug("Lets save person: " + personToSave);
 		try {
@@ -73,20 +91,20 @@ public class MainController {
 		refreshPersonsOutput(personFinder.findAllPersons());
 	}
 
-	public void onSelectPerson(SelectPersonEvent selectPersonEvent) {
+	private void onSelectPerson(SelectPersonEvent selectPersonEvent) {
 		final Integer personId = selectPersonEvent.getPersonId();
 		phoneInput.setPersonIdToSavePhone(personId);
 		refreshPhonesOutput(personId);
 	}
 
-	public void onSearchPersons(SearchPersonsEvent searchPersonsEvent) {
+	private void onSearchPersons(SearchPersonsEvent searchPersonsEvent) {
 		final String search = searchPersonsEvent.getSearch();
 		logger.debug("Lets search persons like " + search);
 		final List<Person> persons = personFinder.findPersonsByFreeSearch(search);
 		refreshPersonsOutput(persons);
 	}
 
-	public void onSavePhone(SavePhoneEvent savePhoneEvent) {
+	void onSavePhone(SavePhoneEvent savePhoneEvent) {
 		final PhoneToSave phoneToSave = savePhoneEvent.getPhoneToSave();
 		logger.debug(String.format("Lets save phone: (%s)%s for person %s",
 				phoneToSave.prefix,

@@ -1,8 +1,8 @@
-package greboreda.agendafx.components.phones;
+package greboreda.agendafx.controllers.components.phones;
 
-import greboreda.agendafx.components.ComponentInitializer;
+import greboreda.agendafx.controllers.components.ViewLoader;
 import greboreda.agendafx.domain.phone.PhoneToSave;
-import greboreda.agendafx.components.phones.events.SavePhoneEvent;
+import greboreda.agendafx.controllers.components.phones.events.SavePhoneEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -31,7 +31,7 @@ public class PhoneInput extends FlowPane {
 	private Integer personIdToSavePhone;
 
 	public PhoneInput() {
-		ComponentInitializer.init(this, PHONE_INPUT_FXML);
+		ViewLoader.load(this, PHONE_INPUT_FXML);
 		saveButton.setDisable(true);
 		saveButton.setOnMouseClicked(this::onSavePhone);
 	}

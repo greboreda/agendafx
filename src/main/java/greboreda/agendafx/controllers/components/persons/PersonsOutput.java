@@ -1,8 +1,8 @@
-package greboreda.agendafx.components.persons;
+package greboreda.agendafx.controllers.components.persons;
 
-import greboreda.agendafx.components.ComponentInitializer;
-import greboreda.agendafx.components.persons.events.SearchPersonsEvent;
-import greboreda.agendafx.components.persons.events.SelectPersonEvent;
+import greboreda.agendafx.controllers.components.ViewLoader;
+import greboreda.agendafx.controllers.components.persons.events.SearchPersonsEvent;
+import greboreda.agendafx.controllers.components.persons.events.SelectPersonEvent;
 import greboreda.agendafx.domain.person.Person;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -34,7 +34,7 @@ public class PersonsOutput extends VBox {
 	private final ObservableList<Person> persons = FXCollections.observableArrayList();
 
 	public PersonsOutput() {
-		ComponentInitializer.init(this, PERSONS_OUTPUT_FXML);
+		ViewLoader.load(this, PERSONS_OUTPUT_FXML);
 		initPersonsView();
 		searchPersonInput.textProperty().addListener((observable, oldValue, newValue) -> {
 			final SearchPersonsEvent event = new SearchPersonsEvent(newValue);

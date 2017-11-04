@@ -1,4 +1,4 @@
-package greboreda.agendafx.components.persons.events;
+package greboreda.agendafx.controllers.components.persons.events;
 
 import greboreda.agendafx.domain.person.PersonToSave;
 import javafx.event.Event;

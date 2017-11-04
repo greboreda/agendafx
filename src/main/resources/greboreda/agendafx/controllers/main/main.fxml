@@ -8,11 +8,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<?import greboreda.agendafx.components.persons.PersonsOutput?>
-<?import greboreda.agendafx.components.phones.PhonesOutput?>
-<?import greboreda.agendafx.components.persons.PersonInput?>
-<?import greboreda.agendafx.components.phones.PhoneInput?>
-<VBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="greboreda.agendafx.controllers.MainController">
+<?import greboreda.agendafx.controllers.components.persons.PersonsOutput?>
+<?import greboreda.agendafx.controllers.components.phones.PhonesOutput?>
+<?import greboreda.agendafx.controllers.components.persons.PersonInput?>
+<?import greboreda.agendafx.controllers.components.phones.PhoneInput?>
+<VBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
   <MenuBar VBox.vgrow="NEVER">
     <Menu mnemonicParsing="false" text="File">
       <MenuItem mnemonicParsing="false" text="Open…" />
@@ -31,12 +31,12 @@
       <Insets left="10.0" right="10.0" top="10.0" />
     </VBox.margin>
     <HBox spacing="10.0">
-      <PersonsOutput fx:id="personsOutput" onSearchPersons="#onSearchPersons" onSelectPerson="#onSelectPerson" />
+      <PersonsOutput fx:id="personsOutput"/>
       <VBox>
-        <PhonesOutput fx:id="phonesOutput" />
-        <PhoneInput fx:id="phoneInput" onSavePhone="#onSavePhone" />
+        <PhonesOutput fx:id="phonesOutput"/>
+        <PhoneInput fx:id="phoneInput"/>
       </VBox>
     </HBox>
-    <PersonInput fx:id="personInput" onSavePerson="#onSavePerson" />
+    <PersonInput fx:id="personInput"/>
   </VBox>
 </VBox>

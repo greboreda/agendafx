@@ -1,8 +1,8 @@
-package greboreda.agendafx.components.persons;
+package greboreda.agendafx.controllers.components.persons;
 
-import greboreda.agendafx.components.ComponentInitializer;
+import greboreda.agendafx.controllers.components.ViewLoader;
 import greboreda.agendafx.domain.person.PersonToSave;
-import greboreda.agendafx.components.persons.events.SavePersonEvent;
+import greboreda.agendafx.controllers.components.persons.events.SavePersonEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -25,7 +25,7 @@ public class PersonInput extends FlowPane {
 	private EventHandler<SavePersonEvent> onSavePersonHandler;
 
 	public PersonInput() {
-		ComponentInitializer.init(this, PERSON_INPUT_FXML);
+		ViewLoader.load(this, PERSON_INPUT_FXML);
 		saveButton.setOnMouseClicked(this::onSave);
 	}
 

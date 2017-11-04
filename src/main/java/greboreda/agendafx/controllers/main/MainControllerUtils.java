@@ -1,4 +1,4 @@
-package greboreda.agendafx.controllers;
+package greboreda.agendafx.controllers.main;
 
 import greboreda.agendafx.business.person.exceptions.SavePersonError;
 import greboreda.agendafx.business.phone.exceptions.SavePhoneError;

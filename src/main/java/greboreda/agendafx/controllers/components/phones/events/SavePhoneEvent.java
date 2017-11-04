@@ -1,4 +1,4 @@
-package greboreda.agendafx.components.phones.events;
+package greboreda.agendafx.controllers.components.phones.events;
 
 import greboreda.agendafx.domain.phone.PhoneToSave;
 import javafx.event.Event;

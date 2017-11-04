@@ -1,24 +1,23 @@
-package greboreda.agendafx.controllers;
+package greboreda.agendafx.controllers.main;
 
 import greboreda.agendafx.business.person.PersonFinder;
 import greboreda.agendafx.business.person.PersonSaver;
 import greboreda.agendafx.business.phone.PhoneFinder;
 import greboreda.agendafx.business.phone.PhoneSaver;
 import greboreda.agendafx.business.phone.exceptions.SavePhoneException;
-import greboreda.agendafx.components.persons.PersonInput;
-import greboreda.agendafx.components.phones.events.SavePhoneEvent;
+import greboreda.agendafx.controllers.components.persons.PersonInput;
+import greboreda.agendafx.controllers.components.phones.PhoneInput;
+import greboreda.agendafx.controllers.components.phones.events.SavePhoneEvent;
 import greboreda.agendafx.domain.person.PersonToSave;
-import greboreda.agendafx.components.persons.events.SavePersonEvent;
-import greboreda.agendafx.components.persons.PersonsOutput;
-import greboreda.agendafx.components.phones.PhonesOutput;
+import greboreda.agendafx.controllers.components.persons.events.SavePersonEvent;
+import greboreda.agendafx.controllers.components.persons.PersonsOutput;
+import greboreda.agendafx.controllers.components.phones.PhonesOutput;
 import greboreda.agendafx.domain.person.Person;
 import greboreda.agendafx.domain.phone.Phone;
 import greboreda.agendafx.domain.phone.PhoneToSave;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
 import java.util.Collections;
 import java.util.List;
@@ -37,7 +36,10 @@ public class MainControllerTest {
 
 	private PersonInput personInput = mock(PersonInput.class);
 	private PersonsOutput personsOutput = mock(PersonsOutput.class);
+
 	private PhonesOutput phonesOutput = mock(PhonesOutput.class);
+	private PhoneInput phoneInput = mock(PhoneInput.class);
+
 	private PersonFinder personFinder = mock(PersonFinder.class);
 	private PersonSaver personSaver = mock(PersonSaver.class);
 	private PhoneFinder phoneFinder = mock(PhoneFinder.class);
@@ -60,6 +62,7 @@ public class MainControllerTest {
 		mainController.personsOutput = personsOutput;
 		mainController.personInput = personInput;
 		mainController.phonesOutput = phonesOutput;
+		mainController.phoneInput = phoneInput;
 	}
 
 	@Test

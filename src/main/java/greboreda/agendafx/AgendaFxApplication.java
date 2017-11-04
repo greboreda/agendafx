@@ -1,13 +1,21 @@
 package greboreda.agendafx;
 
-import de.felixroske.jfxsupport.AbstractJavaFxApplicationSupport;
-import greboreda.agendafx.views.MainView;
+import javafx.application.Application;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
-public class AgendaFxApplication extends AbstractJavaFxApplicationSupport {
+public class AgendaFxApplication {
+
+	private static ConfigurableApplicationContext ctx;
 
 	public static void main(String[] args) {
-		launchApp(AgendaFxApplication.class, MainView.class, args);
+		ctx = SpringApplication.run(AgendaFxApplication.class, args);
+		Application.launch(MainApplication.class);
+	}
+
+	public static ConfigurableApplicationContext getContext() {
+		return ctx;
 	}
 }
