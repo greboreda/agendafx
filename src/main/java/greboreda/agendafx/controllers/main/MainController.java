@@ -20,6 +20,7 @@ import greboreda.agendafx.domain.person.PersonToSave;
 import greboreda.agendafx.domain.phone.Phone;
 import greboreda.agendafx.domain.phone.PhoneToSave;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
 import org.slf4j.Logger;
@@ -28,13 +29,15 @@ import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
 import java.io.IOException;
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import static greboreda.agendafx.controllers.main.MainControllerUtils.manageSavePersonError;
 import static greboreda.agendafx.controllers.main.MainControllerUtils.manageSavePhoneError;
 
 @Component
-public class MainController extends VBox {
+public class MainController extends VBox implements Initializable {
 
 	private static final String MAIN_FXML = "main.fxml";
 
@@ -62,9 +65,13 @@ public class MainController extends VBox {
 	@FXML
 	PhoneInput phoneInput;
 
-	@FXML
-	void initialize() {
+	private ResourceBundle resourceBundle;
+
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
 		logger.info("Initializing");
+		this.resourceBundle = resources;
 		personsOutput.setOnSearchPersons(this::onSearchPersons);
 		personsOutput.setOnSelectPerson(this::onSelectPerson);
 		phoneInput.setOnSavePhone(this::onSavePhone);
@@ -82,7 +89,7 @@ public class MainController extends VBox {
 		try {
 			personSaver.savePerson(personToSave);
 		} catch (SavePersonException e) {
-			manageSavePersonError(e.getSavePersonError());
+			manageSavePersonError(e.getSavePersonError(), resourceBundle);
 		}
 		refreshPersonsOutput(personFinder.findAllPersons());
 	}
@@ -112,7 +119,7 @@ public class MainController extends VBox {
 			final List<Phone> phones = phoneFinder.findPhonesByPersonId(phoneToSave.personId);
 			phonesOutput.refresh(phones);
 		} catch (SavePhoneException e) {
-			manageSavePhoneError(e.getSavePhoneError());
+			manageSavePhoneError(e.getSavePhoneError(), resourceBundle);
 		}
 	}
 

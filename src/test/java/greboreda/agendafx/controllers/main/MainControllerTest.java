@@ -67,7 +67,7 @@ public class MainControllerTest {
 
 	@Test
 	public void should_find_all_persons_when_initialize() {
-		mainController.initialize();
+		mainController.initialize(null, null);
 		verify(personFinder).findAllPersons();
 	}
 
@@ -76,7 +76,7 @@ public class MainControllerTest {
 		final List<Person> allPersons = Collections.emptyList();
 		when(personFinder.findAllPersons()).thenReturn(allPersons);
 
-		mainController.initialize();
+		mainController.initialize(null, null);
 
 		verify(personsOutput).refresh(allPersons);
 	}

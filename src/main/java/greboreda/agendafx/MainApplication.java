@@ -29,5 +29,4 @@ public class MainApplication extends Application {
 		return context.getBean(MainController.class);
 	}
 
-
 }
