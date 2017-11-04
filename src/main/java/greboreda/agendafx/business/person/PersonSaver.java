@@ -1,6 +1,8 @@
 package greboreda.agendafx.business.person;
 
 
+import greboreda.agendafx.business.person.exceptions.SavePersonError;
+import greboreda.agendafx.business.person.exceptions.SavePersonException;
 import greboreda.agendafx.domain.person.PersonToSave;
 import greboreda.agendafx.persistence.dao.PersonDAO;
 import greboreda.agendafx.persistence.mappers.PersonMapper;
@@ -20,14 +22,22 @@ public class PersonSaver {
 		this.personDAO = personDAO;
 	}
 
-	public void savePerson(PersonToSave personToSave) {
-		validatePerson(personToSave);
-		//TODO validate person not exists with same complete name
+	public void savePerson(PersonToSave personToSave) throws SavePersonException {
+		validatePersonData(personToSave);
+		validatePersonNotExists(personToSave);
 		final PersonVO personVO = PersonMapper.mapToVO(personToSave);
 		personDAO.save(personVO);
 	}
 
-	private void validatePerson(PersonToSave person) {
+	private void validatePersonNotExists(PersonToSave personToSave) throws SavePersonException {
+		final PersonVO person = personDAO.findPersonByCompleteName(personToSave.firstName, personToSave.lastName);
+		if(person != null) {
+			final String errorMessage = "Person with that complete name already exists " + personToSave;
+			throw new SavePersonException(SavePersonError.PERSON_ALREADY_EXISTS, errorMessage);
+		}
+	}
+
+	private void validatePersonData(PersonToSave person) {
 		Validate.notNull(person, "person cannot be null");
 		Validate.notBlank(person.firstName, "person first name must not be blank");
 		Validate.notBlank(person.lastName, "person last name must not be blank");

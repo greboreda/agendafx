@@ -3,6 +3,7 @@ package greboreda.agendafx.controllers;
 import de.felixroske.jfxsupport.FXMLController;
 import greboreda.agendafx.business.person.PersonFinder;
 import greboreda.agendafx.business.person.PersonSaver;
+import greboreda.agendafx.business.person.exceptions.SavePersonException;
 import greboreda.agendafx.business.phone.PhoneFinder;
 import greboreda.agendafx.business.phone.PhoneSaver;
 import greboreda.agendafx.business.phone.exceptions.SavePhoneException;
@@ -24,6 +25,9 @@ import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import java.util.List;
+
+import static greboreda.agendafx.controllers.MainControllerUtils.manageSavePersonError;
+import static greboreda.agendafx.controllers.MainControllerUtils.manageSavePhoneError;
 
 @FXMLController
 public class MainController {
@@ -61,7 +65,11 @@ public class MainController {
 	public void onSavePerson(SavePersonEvent savePersonEvent) {
 		final PersonToSave personToSave = savePersonEvent.getpersonToSave();
 		logger.debug("Lets save person: " + personToSave);
-		personSaver.savePerson(personToSave);
+		try {
+			personSaver.savePerson(personToSave);
+		} catch (SavePersonException e) {
+			manageSavePersonError(e.getSavePersonError());
+		}
 		refreshPersonsOutput(personFinder.findAllPersons());
 	}
 
@@ -90,7 +98,7 @@ public class MainController {
 			final List<Phone> phones = phoneFinder.findPhonesByPersonId(phoneToSave.personId);
 			phonesOutput.refresh(phones);
 		} catch (SavePhoneException e) {
-			throw new RuntimeException(e.getMessage());
+			manageSavePhoneError(e.getSavePhoneError());
 		}
 	}
 
@@ -105,5 +113,4 @@ public class MainController {
 		personsOutput.refresh(persons);
 		phonesOutput.clear();
 	}
-
 }

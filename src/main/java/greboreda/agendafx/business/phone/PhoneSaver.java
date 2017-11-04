@@ -7,13 +7,11 @@ import greboreda.agendafx.domain.phone.PhoneOwning;
 import greboreda.agendafx.domain.phone.PhoneToSave;
 import greboreda.agendafx.persistence.dao.PhoneDAO;
 import greboreda.agendafx.persistence.mappers.PhoneMapper;
-import greboreda.agendafx.persistence.vo.PersonVO;
 import greboreda.agendafx.persistence.vo.PhoneVO;
 import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.util.Collections;
 
 @Named
 public class PhoneSaver {

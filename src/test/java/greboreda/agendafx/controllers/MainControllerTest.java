@@ -79,7 +79,7 @@ public class MainControllerTest {
 	}
 
 	@Test
-	public void should_save_person_when_handle_event() {
+	public void should_save_person_when_handle_event() throws Exception {
 
 		final SavePersonEvent event = new SavePersonEvent(A_PERSON_TO_SAVE);
 

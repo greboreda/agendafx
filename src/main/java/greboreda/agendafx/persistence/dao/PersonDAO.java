@@ -21,4 +21,9 @@ public interface PersonDAO extends CrudRepository<PersonVO, Integer>{
 	)
 	List<PersonVO> findPersonsByFirstNameOrLastNameLike(@Param("pattern") String pattern);
 
+	@Query(	" select p from PersonVO as p " +"" +
+			" where lower(p.firstName) = lower(:firstName) " +
+			" or lower(p.lastName) = lower(:lastName) ")
+	PersonVO findPersonByCompleteName(
+			@Param("firstName") String firstName, @Param("lastName") String lastName);
 }

@@ -18,6 +18,7 @@ public interface PhoneDAO extends CrudRepository<PhoneVO,Integer> {
 
 
 	@Query(	" select phone from PhoneVO as phone " +
+			" join fetch phone.owners " +
 			" where phone.prefix = :phonePrefix " +
 			" and phone.number = :phoneNumber ")
 	PhoneVO findPhoneByPrefixAndNumber(

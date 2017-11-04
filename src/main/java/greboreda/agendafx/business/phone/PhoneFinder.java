@@ -3,7 +3,6 @@ package greboreda.agendafx.business.phone;
 import greboreda.agendafx.domain.phone.Phone;
 import greboreda.agendafx.persistence.dao.PhoneDAO;
 import greboreda.agendafx.persistence.mappers.PhoneMapper;
-import greboreda.agendafx.persistence.vo.PhoneVO;
 import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
@@ -24,8 +23,7 @@ public class PhoneFinder {
 
 	public List<Phone> findPhonesByPersonId(Integer personId) {
 		Validate.notNull(personId, "personId cannot be null");
-		final List<PhoneVO> phones = phoneDAO.findPhonesByPersonId(personId);
-		return phones.stream()
+		return phoneDAO.findPhonesByPersonId(personId).stream()
 				.map(PhoneMapper::map)
 				.collect(toList());
 	}
