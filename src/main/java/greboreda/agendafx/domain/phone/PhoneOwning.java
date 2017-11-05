@@ -3,27 +3,27 @@ package greboreda.agendafx.domain.phone;
 public class PhoneOwning {
 	
 	private final Boolean ownedByGivenPerson;
-	private final Boolean ownedByAnotherPersons;
+	private final Boolean ownedByMorePersons;
 
-	private PhoneOwning(Boolean ownedByGivenPerson, Boolean ownedByAnotherPersons) {
+	private PhoneOwning(Boolean ownedByGivenPerson, Boolean ownedByMorePersons) {
 		this.ownedByGivenPerson = ownedByGivenPerson;
-		this.ownedByAnotherPersons = ownedByAnotherPersons;
+		this.ownedByMorePersons = ownedByMorePersons;
 	}
 
 	public Boolean isOwnedByGivenPerson() {
 		return ownedByGivenPerson;
 	}
 
-	public Boolean isOwnedByAnotherPersons() {
-		return ownedByAnotherPersons;
+	public Boolean isOwnedByMorePersons() {
+		return ownedByMorePersons;
 	}
 
 	public static class PhoneOwningBuilder {
 		@FunctionalInterface
-		public interface AddOwnedByAnotherPersons {
-			PhoneOwning ownedByAnotherPersons(Boolean ownedByAnotherPersons);
+		public interface AddOwnedByMorePersons {
+			PhoneOwning ownedByMorePersons(Boolean ownedByAnotherPersons);
 		}
-		public AddOwnedByAnotherPersons ownedByGivenPerson(Boolean ownedByGivenPerson) {
+		public AddOwnedByMorePersons ownedByGivenPerson(Boolean ownedByGivenPerson) {
 			return ownedByAnotherPersons -> new PhoneOwning(ownedByGivenPerson, ownedByAnotherPersons);
 		}
 	}

@@ -21,8 +21,8 @@ class MainControllerErrorShower {
 	static {
 		savePersonErrorKeys.put(SavePersonError.PERSON_ALREADY_EXISTS, "error.person.already.exist");
 
-		savePhoneErrorKeys.put(SavePhoneError.PHONE_ALREADY_EXISTS_FOR_THAT_PERSON, "error.phone.already.owned.by.that.person");
-		savePhoneErrorKeys.put(SavePhoneError.PHONE_ALREAY_EXISTS_FOR_ANOTHER_PERSON, "error.phone.already.owned.by.another.person");
+		savePhoneErrorKeys.put(SavePhoneError.PHONE_ALREADY_OWNED_FOR_GIVEN_PERSON, "error.phone.already.owned.by.that.person");
+		savePhoneErrorKeys.put(SavePhoneError.PHONE_ALREADY_OWNED_FOR_MORE_PERSONS, "error.phone.already.owned.by.another.person");
 	}
 	private static final String DEFAULT_ERROR_KEY = "error.unexpected";
 

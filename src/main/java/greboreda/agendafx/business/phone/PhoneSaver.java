@@ -41,10 +41,10 @@ public class PhoneSaver {
 		final PhoneOwning phoneOwning = phoneOwningChecker.checkOwningToSave(phoneToSave);
 		if(phoneOwning.isOwnedByGivenPerson()) {
 			final String errorMessage = "person already owns that phone";
-			throw new SavePhoneException(SavePhoneError.PHONE_ALREADY_EXISTS_FOR_THAT_PERSON, errorMessage);
-		} else if (phoneOwning.isOwnedByAnotherPersons()) {
+			throw new SavePhoneException(SavePhoneError.PHONE_ALREADY_OWNED_FOR_GIVEN_PERSON, errorMessage);
+		} else if (phoneOwning.isOwnedByMorePersons()) {
 			final String errorMessage = "phone already exists for another person(s)";
-			throw new SavePhoneException(SavePhoneError.PHONE_ALREAY_EXISTS_FOR_ANOTHER_PERSON, errorMessage);
+			throw new SavePhoneException(SavePhoneError.PHONE_ALREADY_OWNED_FOR_MORE_PERSONS, errorMessage);
 		}
 	}
 

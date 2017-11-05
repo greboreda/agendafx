@@ -60,12 +60,12 @@ public class PhoneSaverTest {
 		when(phoneOwningChecker.checkOwningToSave(A_PHONE_TO_SAVE))
 				.thenReturn(PhoneOwning.create()
 						.ownedByGivenPerson(true)
-						.ownedByAnotherPersons(false));
+						.ownedByMorePersons(false));
 
 		final SavePhoneException thrown = assertThrows(SavePhoneException.class,
 				() -> phoneSaver.savePhone(A_PHONE_TO_SAVE));
 
-		assertThat(thrown.getSavePhoneError(), is(SavePhoneError.PHONE_ALREADY_EXISTS_FOR_THAT_PERSON));
+		assertThat(thrown.getSavePhoneError(), is(SavePhoneError.PHONE_ALREADY_OWNED_FOR_GIVEN_PERSON));
 	}
 
 	@Test
@@ -77,12 +77,12 @@ public class PhoneSaverTest {
 		when(phoneOwningChecker.checkOwningToSave(A_PHONE_TO_SAVE))
 				.thenReturn(PhoneOwning.create()
 						.ownedByGivenPerson(false)
-						.ownedByAnotherPersons(true));
+						.ownedByMorePersons(true));
 
 		final SavePhoneException thrown = assertThrows(SavePhoneException.class,
 				() -> phoneSaver.savePhone(A_PHONE_TO_SAVE));
 
-		assertThat(thrown.getSavePhoneError(), is(SavePhoneError.PHONE_ALREAY_EXISTS_FOR_ANOTHER_PERSON));
+		assertThat(thrown.getSavePhoneError(), is(SavePhoneError.PHONE_ALREADY_OWNED_FOR_MORE_PERSONS));
 	}
 
 	@Test
@@ -94,7 +94,7 @@ public class PhoneSaverTest {
 		when(phoneOwningChecker.checkOwningToSave(A_PHONE_TO_SAVE))
 				.thenReturn(PhoneOwning.create()
 						.ownedByGivenPerson(false)
-						.ownedByAnotherPersons(false));
+						.ownedByMorePersons(false));
 
 		phoneSaver.savePhone(A_PHONE_TO_SAVE);
 

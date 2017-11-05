@@ -6,13 +6,13 @@ import greboreda.agendafx.business.phone.PhoneFinder;
 import greboreda.agendafx.business.phone.PhoneSaver;
 import greboreda.agendafx.business.phone.exceptions.SavePhoneException;
 import greboreda.agendafx.controllers.components.persons.PersonInput;
-import greboreda.agendafx.controllers.components.phones.PhoneInput;
-import greboreda.agendafx.controllers.components.phones.events.SavePhoneEvent;
-import greboreda.agendafx.domain.person.PersonToSave;
-import greboreda.agendafx.controllers.components.persons.events.SavePersonEvent;
 import greboreda.agendafx.controllers.components.persons.PersonsOutput;
+import greboreda.agendafx.controllers.components.persons.events.SavePersonEvent;
+import greboreda.agendafx.controllers.components.phones.PhoneInput;
 import greboreda.agendafx.controllers.components.phones.PhonesOutput;
+import greboreda.agendafx.controllers.components.phones.events.SavePhoneEvent;
 import greboreda.agendafx.domain.person.Person;
+import greboreda.agendafx.domain.person.PersonToSave;
 import greboreda.agendafx.domain.phone.Phone;
 import greboreda.agendafx.domain.phone.PhoneToSave;
 import org.junit.Before;
@@ -21,11 +21,10 @@ import org.mockito.ArgumentCaptor;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-import static org.hamcrest.core.IsNull.nullValue;
-import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
@@ -67,7 +66,7 @@ public class MainControllerTest {
 
 	@Test
 	public void should_find_all_persons_when_initialize() {
-		mainController.initialize(null, null);
+		mainController.initialize(null, mock(ResourceBundle.class));
 		verify(personFinder).findAllPersons();
 	}
 
@@ -76,7 +75,7 @@ public class MainControllerTest {
 		final List<Person> allPersons = Collections.emptyList();
 		when(personFinder.findAllPersons()).thenReturn(allPersons);
 
-		mainController.initialize(null, null);
+		mainController.initialize(null, mock(ResourceBundle.class));
 
 		verify(personsOutput).refresh(allPersons);
 	}

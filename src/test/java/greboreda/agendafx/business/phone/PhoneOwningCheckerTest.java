@@ -11,7 +11,7 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.Set;
 
-import static java.util.stream.Collectors.*;
+import static java.util.stream.Collectors.toSet;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -50,7 +50,7 @@ public class PhoneOwningCheckerTest {
 		final PhoneOwning phoneOwning = phoneOwningChecker.checkOwningToSave(A_PHONE_TO_SAVE);
 
 		assertAll(
-				() -> assertThat(phoneOwning.isOwnedByAnotherPersons(), is(false)),
+				() -> assertThat(phoneOwning.isOwnedByMorePersons(), is(false)),
 				() -> assertThat(phoneOwning.isOwnedByGivenPerson(), is(false))
 		);
 	}
@@ -64,7 +64,7 @@ public class PhoneOwningCheckerTest {
 		final PhoneOwning phoneOwning = phoneOwningChecker.checkOwningToSave(A_PHONE_TO_SAVE);
 
 		assertAll(
-				() -> assertThat(phoneOwning.isOwnedByAnotherPersons(), is(false)),
+				() -> assertThat(phoneOwning.isOwnedByMorePersons(), is(false)),
 				() -> assertThat(phoneOwning.isOwnedByGivenPerson(), is(true))
 		);
 	}
@@ -83,7 +83,7 @@ public class PhoneOwningCheckerTest {
 		final PhoneOwning phoneOwning = phoneOwningChecker.checkOwningToSave(A_PHONE_TO_SAVE);
 
 		assertAll(
-				() -> assertThat(phoneOwning.isOwnedByAnotherPersons(), is(true)),
+				() -> assertThat(phoneOwning.isOwnedByMorePersons(), is(true)),
 				() -> assertThat(phoneOwning.isOwnedByGivenPerson(), is(false))
 		);
 	}
@@ -102,7 +102,7 @@ public class PhoneOwningCheckerTest {
 		final PhoneOwning phoneOwning = phoneOwningChecker.checkOwningToSave(A_PHONE_TO_SAVE);
 
 		assertAll(
-				() -> assertThat(phoneOwning.isOwnedByAnotherPersons(), is(true)),
+				() -> assertThat(phoneOwning.isOwnedByMorePersons(), is(true)),
 				() -> assertThat(phoneOwning.isOwnedByGivenPerson(), is(true))
 		);
 	}

@@ -21,13 +21,12 @@ public class ViewLoader {
 
 	private static final Map<Class<? extends Node>,String> fxmlFiles = new HashMap<>();
 	static{
-		fxmlFiles.put(MainController.class, "/fxml/main.fxml");
-		fxmlFiles.put(PersonInput.class, "/fxml/personinput.fxml");
-		fxmlFiles.put(PersonsOutput.class, "/fxml/personsoutput.fxml");
-		fxmlFiles.put(PhoneInput.class, "/fxml/phoneinput.fxml");
-		fxmlFiles.put(PhonesOutput.class, "/fxml/phonesoutput.fxml");
-		fxmlFiles.put(AppMenu.class, "/fxml/appmenu.fxml");
-
+		fxmlFiles.put(MainController.class, "/fxml/main/main.fxml");
+		fxmlFiles.put(PersonInput.class, "/fxml/components/persons/personinput.fxml");
+		fxmlFiles.put(PersonsOutput.class, "/fxml/components/persons/personsoutput.fxml");
+		fxmlFiles.put(PhoneInput.class, "/fxml/components/phones/phoneinput.fxml");
+		fxmlFiles.put(PhonesOutput.class, "/fxml/components/phones/phonesoutput.fxml");
+		fxmlFiles.put(AppMenu.class, "/fxml/components/menu/appmenu.fxml");
 	}
 
 	public static Parent load(Node component) {
@@ -50,7 +49,6 @@ public class ViewLoader {
 			throw new IllegalArgumentException("Not fxml file defined for class " + clazz.getSimpleName());
 		}
 		return fxmlFiles.get(clazz);
-
 	}
 
 }

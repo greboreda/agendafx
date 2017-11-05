@@ -29,7 +29,7 @@ public class PhoneOwningChecker {
 		if(phoneVO == null) {
 			return PhoneOwning.create()
 					.ownedByGivenPerson(false)
-					.ownedByAnotherPersons(false);
+					.ownedByMorePersons(false);
 		}
 
 		final Set<PersonVO> owners = phoneVO.getOwners();
@@ -38,7 +38,7 @@ public class PhoneOwningChecker {
 
 		return PhoneOwning.create()
 				.ownedByGivenPerson(personAlreadyOwnsPhone)
-				.ownedByAnotherPersons(anotherPersonOwnsPhone);
+				.ownedByMorePersons(anotherPersonOwnsPhone);
 	}
 
 	private boolean checkIfAnotherPersonOwnsPhone(PhoneToSave phoneToSave, Set<PersonVO> owners) {
