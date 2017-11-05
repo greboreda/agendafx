@@ -7,11 +7,11 @@
 <?import javafx.scene.layout.RowConstraints?>
 <fx:root type="GridPane" hgap="10.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
 
-    <TextField fx:id="phonePrefixInput" promptText="prefix"
+    <TextField fx:id="phonePrefixInput" promptText="%phone.prefix"
                GridPane.columnIndex="0"/>
-    <TextField fx:id="phoneNumberInput" promptText="number"
+    <TextField fx:id="phoneNumberInput" promptText="%phone.number"
                GridPane.columnIndex="1" />
-    <Button fx:id="saveButton" mnemonicParsing="false" text="Save"
+    <Button fx:id="saveButton" mnemonicParsing="false" text="%generic.save"
             GridPane.columnIndex="2" />
    <columnConstraints>
       <ColumnConstraints percentWidth="20"/>

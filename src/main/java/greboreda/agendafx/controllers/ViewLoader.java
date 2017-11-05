@@ -6,6 +6,7 @@ import greboreda.agendafx.controllers.components.persons.PersonsOutput;
 import greboreda.agendafx.controllers.components.phones.PhoneInput;
 import greboreda.agendafx.controllers.components.phones.PhonesOutput;
 import greboreda.agendafx.controllers.main.MainController;
+import greboreda.agendafx.util.ResourceBundleRetriever;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -14,9 +15,7 @@ import org.apache.commons.lang3.Validate;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
-import java.util.ResourceBundle;
 
 public class ViewLoader {
 
@@ -35,11 +34,10 @@ public class ViewLoader {
 		Validate.notNull(component, "component cannot be null");
 		final String resourceName =  getFxmlByClass(component.getClass());
 		final URL resource = ViewLoader.class.getResource(resourceName);
-		final ResourceBundle resourceBundle = ResourceBundle.getBundle("i18n/messages", Locale.ENGLISH);
 		final FXMLLoader fxmlLoader = new FXMLLoader(resource);
 		fxmlLoader.setRoot(component);
 		fxmlLoader.setController(component);
-		fxmlLoader.setResources(resourceBundle);
+		fxmlLoader.setResources(ResourceBundleRetriever.get());
 		try {
 			return fxmlLoader.load();
 		} catch (IOException e) {

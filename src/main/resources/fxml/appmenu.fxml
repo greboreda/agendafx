@@ -3,19 +3,13 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SeparatorMenuItem?>
 <fx:root type="MenuBar" xmlns="http://javafx.com/javafx"
          xmlns:fx="http://javafx.com/fxml">
     <Menu mnemonicParsing="false" text="File">
-        <MenuItem mnemonicParsing="false" text="Open…" />
-        <Menu mnemonicParsing="false" text="Open Recent" />
-        <SeparatorMenuItem mnemonicParsing="false" />
-        <MenuItem mnemonicParsing="false" text="Preferences…" />
-        <SeparatorMenuItem mnemonicParsing="false" />
-        <MenuItem fx:id="quit" mnemonicParsing="false" text="Quit" />
+        <MenuItem fx:id="quit" mnemonicParsing="false" text="%generic.quit" />
     </Menu>
     <Menu mnemonicParsing="false" text="Help">
-        <MenuItem mnemonicParsing="false" text="About agendafx" />
+        <MenuItem mnemonicParsing="false" text="%geneirc.about" />
     </Menu>
 
 </fx:root>

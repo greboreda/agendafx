@@ -107,8 +107,7 @@ public class MainController extends VBox implements Initializable {
 		logger.debug(String.format("Lets save phone: (%s)%s for person %s",
 				phoneToSave.prefix,
 				phoneToSave.number,
-				phoneToSave.personId
-		));
+				phoneToSave.personId));
 		try {
 			phoneSaver.savePhone(phoneToSave);
 			final List<Phone> phones = phoneFinder.findPhonesByPersonId(phoneToSave.personId);

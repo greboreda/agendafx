@@ -1,6 +1,7 @@
 package greboreda.agendafx;
 
 import greboreda.agendafx.controllers.main.MainController;
+import greboreda.agendafx.util.ResourceBundleRetriever;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -21,7 +22,7 @@ public class MainApplication extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		primaryStage.setScene(mainScene);
-		primaryStage.setTitle("agendaFX");
+		primaryStage.setTitle(ResourceBundleRetriever.get().getString("app.name"));
 		primaryStage.show();
 	}
 
