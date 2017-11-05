@@ -1,6 +1,7 @@
 package greboreda.agendafx.persistence.vo;
 
-import org.hibernate.validator.constraints.NotBlank;
+import javax.persistence.ForeignKey;
+import javax.validation.constraints.NotNull;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,15 +28,19 @@ public class PhoneVO {
 	@SequenceGenerator(name = "PHONE_SEQ", sequenceName = "PHONE_SEQ", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PHONE_SEQ")
 	private Integer id;
-	@NotBlank
+	@NotNull
 	private String number;
-	@NotBlank
+	@NotNull
 	private String prefix;
+	@NotNull
 	@ManyToMany
 	@JoinTable(name = "PERSONPHONE",
-			joinColumns = {@JoinColumn(name = "PERSONID")},
-			inverseJoinColumns = {@JoinColumn(name = "PHONEID")}
-	)
+			joinColumns = {@JoinColumn(
+					name = "PERSONID",
+					foreignKey = @ForeignKey(name = "FK_PERSON"))},
+			inverseJoinColumns = {@JoinColumn(
+					name = "PHONEID",
+					foreignKey = @ForeignKey(name = "FK_PHONE"))})
 	private Set<PersonVO> owners;
 
 	public Integer getId() {
