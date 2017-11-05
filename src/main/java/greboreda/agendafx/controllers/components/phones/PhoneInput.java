@@ -1,19 +1,19 @@
 package greboreda.agendafx.controllers.components.phones;
 
 import greboreda.agendafx.controllers.ViewLoader;
-import greboreda.agendafx.domain.phone.PhoneToSave;
 import greboreda.agendafx.controllers.components.phones.events.SavePhoneEvent;
+import greboreda.agendafx.domain.phone.PhoneToSave;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public class PhoneInput extends FlowPane {
+public class PhoneInput extends GridPane {
 
 	@SuppressWarnings("unused")
 	private static final Logger logger = LoggerFactory.getLogger(PhoneInput.class);
