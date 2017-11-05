@@ -33,8 +33,6 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import static greboreda.agendafx.controllers.main.MainControllerUtils.manageSavePersonError;
-import static greboreda.agendafx.controllers.main.MainControllerUtils.manageSavePhoneError;
 
 @Component
 public class MainController extends VBox implements Initializable {
@@ -46,14 +44,6 @@ public class MainController extends VBox implements Initializable {
 	private final PhoneFinder phoneFinder;
 	private final PhoneSaver phoneSaver;
 
-	@Inject
-	public MainController(PersonSaver personSaver, PersonFinder personFinder, PhoneFinder phoneFinder, PhoneSaver phoneSaver) {
-		this.personSaver = personSaver;
-		this.personFinder = personFinder;
-		this.phoneFinder = phoneFinder;
-		this.phoneSaver = phoneSaver;
-	}
-
 	@FXML
 	PersonInput personInput;
 	@FXML
@@ -63,13 +53,20 @@ public class MainController extends VBox implements Initializable {
 	@FXML
 	PhoneInput phoneInput;
 
-	private ResourceBundle resourceBundle;
+	private MainControllerErrorShower errorShower;
 
+	@Inject
+	public MainController(PersonSaver personSaver, PersonFinder personFinder, PhoneFinder phoneFinder, PhoneSaver phoneSaver) {
+		this.personSaver = personSaver;
+		this.personFinder = personFinder;
+		this.phoneFinder = phoneFinder;
+		this.phoneSaver = phoneSaver;
+	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		logger.info("Initializing");
-		this.resourceBundle = resources;
+		this.errorShower = new MainControllerErrorShower(resources);
 		personsOutput.setOnSearchPersons(this::onSearchPersons);
 		personsOutput.setOnSelectPerson(this::onSelectPerson);
 		phoneInput.setOnSavePhone(this::onSavePhone);
@@ -87,7 +84,7 @@ public class MainController extends VBox implements Initializable {
 		try {
 			personSaver.savePerson(personToSave);
 		} catch (SavePersonException e) {
-			manageSavePersonError(e.getSavePersonError(), resourceBundle);
+			errorShower.showSavePersonError(e.getSavePersonError());
 		}
 		refreshPersonsOutput(personFinder.findAllPersons());
 	}
@@ -117,7 +114,7 @@ public class MainController extends VBox implements Initializable {
 			final List<Phone> phones = phoneFinder.findPhonesByPersonId(phoneToSave.personId);
 			phonesOutput.refresh(phones);
 		} catch (SavePhoneException e) {
-			manageSavePhoneError(e.getSavePhoneError(), resourceBundle);
+			errorShower.showSavePhoneError(e.getSavePhoneError());
 		}
 	}
 
