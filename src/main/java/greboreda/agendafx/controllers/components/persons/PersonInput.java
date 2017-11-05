@@ -1,17 +1,25 @@
 package greboreda.agendafx.controllers.components.persons;
 
 import greboreda.agendafx.controllers.ViewLoader;
-import greboreda.agendafx.domain.person.PersonToSave;
 import greboreda.agendafx.controllers.components.persons.events.SavePersonEvent;
-import javafx.event.Event;
+import greboreda.agendafx.domain.person.PersonToSave;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class PersonInput extends FlowPane {
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
+
+
+public class PersonInput extends FlowPane implements Initializable {
 
 	@FXML
 	private TextField firstNameInput;
@@ -21,14 +29,25 @@ public class PersonInput extends FlowPane {
 	private Button saveButton;
 
 	private EventHandler<SavePersonEvent> onSavePersonHandler;
+	private ResourceBundle resources;
 
 	public PersonInput() {
 		ViewLoader.load(this);
 		saveButton.setOnMouseClicked(this::onSave);
 	}
 
-	private void onSave(Event event) {
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		this.resources = resources;
+	}
+
+	private void onSave(MouseEvent event) {
 		final PersonToSave personToSave = retrievePersonToSave();
+		final boolean validData = isNotBlank(personToSave.firstName) && isNotBlank(personToSave.lastName);
+		if(!validData) {
+			showError();
+			return;
+		}
 		final SavePersonEvent savePersonEvent = new SavePersonEvent(personToSave);
 		onSavePersonHandler.handle(savePersonEvent);
 	}
@@ -41,6 +60,14 @@ public class PersonInput extends FlowPane {
 				.withLastName(lastName);
 	}
 
+	private void showError() {
+		final Alert error = new Alert(AlertType.ERROR);
+		error.setTitle(resources.getString("generic.dialog.info"));
+		error.setHeaderText(resources.getString("error.alert.title"));
+		error.setContentText(resources.getString("error.person.blank"));
+		error.showAndWait();
+	}
+
 	public final EventHandler<SavePersonEvent> getOnSavePerson() {
 		return onSavePersonHandler;
 	}
@@ -48,5 +75,4 @@ public class PersonInput extends FlowPane {
 	public final void setOnSavePerson(EventHandler<SavePersonEvent> savePersonEventHandler) {
 		this.onSavePersonHandler = savePersonEventHandler;
 	}
-
 }
