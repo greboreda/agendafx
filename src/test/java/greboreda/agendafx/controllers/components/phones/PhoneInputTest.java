@@ -1,12 +1,10 @@
 package greboreda.agendafx.controllers.components.phones;
 
 import greboreda.agendafx.AgendaFxApplication;
-import greboreda.agendafx.MainApplication;
+import greboreda.agendafx.MainApplicationMock;
 import greboreda.agendafx.controllers.ViewLoader;
 import greboreda.agendafx.controllers.components.phones.events.SavePhoneEvent;
-import greboreda.agendafx.controllers.main.MainController;
 import greboreda.agendafx.domain.phone.PhoneToSave;
-import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -21,7 +19,6 @@ import org.mockito.ArgumentCaptor;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import org.springframework.context.ConfigurableApplicationContext;
 
 import java.io.IOException;
 
@@ -43,13 +40,7 @@ public class PhoneInputTest {
 
 	@BeforeClass
 	public static void setUpClass() throws IOException {
-		final ConfigurableApplicationContext ctx = mock(ConfigurableApplicationContext.class);
-		PowerMockito.mockStatic(AgendaFxApplication.class);
-		when(AgendaFxApplication.getContext()).thenReturn(ctx);
-		final MainController mainController = mock(MainController.class);
-		when(mainController.build()).thenReturn(mock(Parent.class));
-		when(ctx.getBean(MainController.class)).thenReturn(mainController);
-		appThread = new Thread(() -> Application.launch(MainApplication.class));
+		appThread = MainApplicationMock.getThread();
 		appThread.start();
 	}
 
