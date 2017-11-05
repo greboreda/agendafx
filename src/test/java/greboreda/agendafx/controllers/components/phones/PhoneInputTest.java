@@ -9,7 +9,6 @@ import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -24,7 +23,6 @@ import java.io.IOException;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
@@ -54,7 +52,6 @@ public class PhoneInputTest {
 		phoneInput.phonePrefixInput = mock(TextField.class);
 		phoneInput.saveButton = mock(Button.class);
 		phoneInput.onSavePhoneHandler = mock(EventHandler.class);
-		phoneInput.initialize();
 	}
 
 	@AfterClass
@@ -68,9 +65,8 @@ public class PhoneInputTest {
 		when(phoneInput.phonePrefixInput.getText()).thenReturn("123");
 		when(phoneInput.phoneNumberInput.getText()).thenReturn("456");
 
-		phoneInput.saveButton.fire();
+		phoneInput.onSavePhone(null);
 
-		verify(phoneInput).onSavePhone(any(MouseEvent.class));
 		final ArgumentCaptor<SavePhoneEvent> eventCaptor = ArgumentCaptor.forClass(SavePhoneEvent.class);
 		verify(phoneInput.onSavePhoneHandler).handle(eventCaptor.capture());
 		final PhoneToSave phoneToSave = eventCaptor.getValue().getPhoneToSave();
