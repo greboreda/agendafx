@@ -21,6 +21,7 @@ public class MainApplication extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		primaryStage.setScene(mainScene);
+		primaryStage.setTitle("agendaFX");
 		primaryStage.show();
 	}
 
