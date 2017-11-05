@@ -1,22 +1,29 @@
 package greboreda.agendafx.controllers.components.phones;
 
-import greboreda.agendafx.controllers.JavaFXThreadingRule;
+import greboreda.agendafx.AgendaFxApplication;
+import greboreda.agendafx.MainApplication;
 import greboreda.agendafx.controllers.ViewLoader;
 import greboreda.agendafx.controllers.components.phones.events.SavePhoneEvent;
+import greboreda.agendafx.controllers.main.MainController;
 import greboreda.agendafx.domain.phone.PhoneToSave;
+import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.Rule;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+import org.springframework.context.ConfigurableApplicationContext;
+
+import java.io.IOException;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -28,26 +35,40 @@ import static org.mockito.Mockito.when;
 
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({ViewLoader.class})
+@PrepareForTest({AgendaFxApplication.class, ViewLoader.class})
 public class PhoneInputTest {
 
+	private static Thread appThread;
 	private PhoneInput phoneInput;
 
-	@Rule
-	public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
+	@BeforeClass
+	public static void setUpClass() throws IOException {
+		final ConfigurableApplicationContext ctx = mock(ConfigurableApplicationContext.class);
+		PowerMockito.mockStatic(AgendaFxApplication.class);
+		when(AgendaFxApplication.getContext()).thenReturn(ctx);
+		final MainController mainController = mock(MainController.class);
+		when(mainController.build()).thenReturn(mock(Parent.class));
+		when(ctx.getBean(MainController.class)).thenReturn(mainController);
+		appThread = new Thread(() -> Application.launch(MainApplication.class));
+		appThread.start();
+	}
 
 	@Before
 	public void setUp() {
 
 		PowerMockito.mockStatic(ViewLoader.class);
-		when(ViewLoader.load(phoneInput)).then(a -> {
-			phoneInput.phoneNumberInput = mock(TextField.class);
-			phoneInput.phonePrefixInput = mock(TextField.class);
-			phoneInput.saveButton = mock(Button.class);
-			phoneInput.onSavePhoneHandler = mock(EventHandler.class);
-			return mock(Parent.class);
-		});
+		when(ViewLoader.load(phoneInput)).thenReturn(mock(Parent.class));
 		phoneInput = spy(PhoneInput.class);
+		phoneInput.phoneNumberInput = mock(TextField.class);
+		phoneInput.phonePrefixInput = mock(TextField.class);
+		phoneInput.saveButton = mock(Button.class);
+		phoneInput.onSavePhoneHandler = mock(EventHandler.class);
+		phoneInput.initialize();
+	}
+
+	@AfterClass
+	public static void tearDown() throws InterruptedException {
+		appThread.join();
 	}
 
 	@Test
