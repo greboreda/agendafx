@@ -43,14 +43,13 @@ public class PhoneInputTest {
 
 	@Before
 	public void setUp() {
-
 		PowerMockito.mockStatic(ViewLoader.class);
 		when(ViewLoader.load(phoneInput)).thenReturn(mock(Parent.class));
 		phoneInput = spy(PhoneInput.class);
-		phoneInput.phoneNumberInput = new TextField();
-		phoneInput.phonePrefixInput = new TextField();
-		phoneInput.saveButton = new Button();
-		phoneInput.onSavePhoneHandler = mock(EventHandler.class);
+		phoneInput.phoneNumberInput = spy(TextField.class);
+		phoneInput.phonePrefixInput = spy(TextField.class);
+		phoneInput.saveButton = spy(Button.class);
+		phoneInput.setOnSavePhone(mock(EventHandler.class));
 	}
 
 	@AfterClass
@@ -59,16 +58,42 @@ public class PhoneInputTest {
 	}
 
 	@Test
-	public void should_handle_save_person_event_when_click_on_save_button() {
+	public void should_disable_save_button_when_initialize() {
+		phoneInput.initialize();
+		verify(phoneInput.saveButton).setDisable(true);
+	}
 
+	@Test
+	public void should_set_save_button_behaviour_when_initialize() {
+		phoneInput.initialize();
+		verify(phoneInput.saveButton).setOnMouseClicked(e -> phoneInput.onSavePhone(e));
+	}
+
+	@Test
+	public void should_enable_save_button_when_setting_a_not_null_person_id() {
+		phoneInput.setPersonIdToSavePhone(123);
+		verify(phoneInput.saveButton).setDisable(false);
+	}
+
+	@Test
+	public void should_disable_save_button_when_setting_a_null_person_id() {
+		phoneInput.setPersonIdToSavePhone(null);
+		verify(phoneInput.saveButton).setDisable(true);
+	}
+
+	@Test
+	public void should_handle_save_person_event_when_handled_on_save() {
+
+		phoneInput.setPersonIdToSavePhone(123);
 		phoneInput.phonePrefixInput.setText("123");
 		phoneInput.phoneNumberInput.setText("456");
 
 		phoneInput.onSavePhone(null);
 
 		final ArgumentCaptor<SavePhoneEvent> eventCaptor = ArgumentCaptor.forClass(SavePhoneEvent.class);
-		verify(phoneInput.onSavePhoneHandler).handle(eventCaptor.capture());
+		verify(phoneInput.getOnSavePhone()).handle(eventCaptor.capture());
 		final PhoneToSave phoneToSave = eventCaptor.getValue().getPhoneToSave();
+		assertThat(phoneToSave.personId, is(123));
 		assertThat(phoneToSave.number, is("456"));
 		assertThat(phoneToSave.prefix, is("123"));
 	}

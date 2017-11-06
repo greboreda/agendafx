@@ -25,7 +25,7 @@ public class PhoneInput extends GridPane {
 	@FXML
 	Button saveButton;
 
-	EventHandler<SavePhoneEvent> onSavePhoneHandler;
+	private EventHandler<SavePhoneEvent> onSavePhoneHandler;
 	private Integer personIdToSavePhone;
 
 	public PhoneInput() {
