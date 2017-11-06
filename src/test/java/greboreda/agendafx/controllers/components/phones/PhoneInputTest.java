@@ -5,6 +5,7 @@ import greboreda.agendafx.MainApplicationMock;
 import greboreda.agendafx.controllers.ViewLoader;
 import greboreda.agendafx.controllers.components.phones.events.SavePhoneEvent;
 import greboreda.agendafx.domain.phone.PhoneToSave;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -33,13 +34,11 @@ import static org.mockito.Mockito.when;
 @PrepareForTest({AgendaFxApplication.class, ViewLoader.class})
 public class PhoneInputTest {
 
-	private static Thread appThread;
 	private PhoneInput phoneInput;
 
 	@BeforeClass
 	public static void setUpClass() throws IOException {
-		appThread = MainApplicationMock.getThread();
-		appThread.start();
+		MainApplicationMock.initialize();
 	}
 
 	@Before
@@ -48,22 +47,22 @@ public class PhoneInputTest {
 		PowerMockito.mockStatic(ViewLoader.class);
 		when(ViewLoader.load(phoneInput)).thenReturn(mock(Parent.class));
 		phoneInput = spy(PhoneInput.class);
-		phoneInput.phoneNumberInput = mock(TextField.class);
-		phoneInput.phonePrefixInput = mock(TextField.class);
-		phoneInput.saveButton = mock(Button.class);
+		phoneInput.phoneNumberInput = new TextField();
+		phoneInput.phonePrefixInput = new TextField();
+		phoneInput.saveButton = new Button();
 		phoneInput.onSavePhoneHandler = mock(EventHandler.class);
 	}
 
 	@AfterClass
 	public static void tearDown() throws InterruptedException {
-		appThread.join();
+		Platform.exit();
 	}
 
 	@Test
 	public void should_handle_save_person_event_when_click_on_save_button() {
 
-		when(phoneInput.phonePrefixInput.getText()).thenReturn("123");
-		when(phoneInput.phoneNumberInput.getText()).thenReturn("456");
+		phoneInput.phonePrefixInput.setText("123");
+		phoneInput.phoneNumberInput.setText("456");
 
 		phoneInput.onSavePhone(null);
 

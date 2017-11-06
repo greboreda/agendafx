@@ -11,7 +11,8 @@ public class MainApplicationMock extends Application {
 		primaryStage.show();
 	}
 
-	public static Thread getThread() {
-		return new Thread(() -> Application.launch(MainApplicationMock.class));
+	public static void initialize() {
+		final Thread thread = new Thread(() -> Application.launch(MainApplicationMock.class));
+		thread.start();
 	}
 }
