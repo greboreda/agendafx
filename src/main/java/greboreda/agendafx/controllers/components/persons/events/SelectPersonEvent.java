@@ -1,15 +1,15 @@
 package greboreda.agendafx.controllers.components.persons.events;
 
 import javafx.event.Event;
-import javafx.event.EventType;
+
+import static greboreda.agendafx.controllers.components.persons.events.PersonEventTypes.SELECT_PERSON;
 
 public class SelectPersonEvent extends Event {
 
-	private static final EventType<SelectPersonEvent> eventType = new EventType<>("selectperson");
 	private final Integer personId;
 
 	public SelectPersonEvent(Integer personId) {
-		super(eventType);
+		super(SELECT_PERSON);
 		this.personId = personId;
 	}
 

@@ -2,20 +2,19 @@ package greboreda.agendafx.controllers.components.persons.events;
 
 import greboreda.agendafx.domain.person.PersonToSave;
 import javafx.event.Event;
-import javafx.event.EventType;
+
+import static greboreda.agendafx.controllers.components.persons.events.PersonEventTypes.SAVE_PERSON;
 
 public class SavePersonEvent extends Event {
-
-	private static final EventType<SavePersonEvent> eventType = new EventType<>("saveperson");
 
 	private PersonToSave personToSave;
 
 	public SavePersonEvent(PersonToSave personToSave) {
-		super(eventType);
+		super(SAVE_PERSON);
 		this.personToSave = personToSave;
 	}
 
-	public PersonToSave getpersonToSave() {
+	public PersonToSave getPersonToSave() {
 		return personToSave;
 	}
 

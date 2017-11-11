@@ -4,6 +4,7 @@ import greboreda.agendafx.business.person.PersonFinder;
 import greboreda.agendafx.business.person.PersonSaver;
 import greboreda.agendafx.business.phone.PhoneFinder;
 import greboreda.agendafx.business.phone.PhoneSaver;
+import greboreda.agendafx.business.phone.exceptions.SavePhoneError;
 import greboreda.agendafx.business.phone.exceptions.SavePhoneException;
 import greboreda.agendafx.controllers.components.persons.PersonInput;
 import greboreda.agendafx.controllers.components.persons.PersonsOutput;
@@ -25,7 +26,8 @@ import java.util.ResourceBundle;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -62,6 +64,7 @@ public class MainControllerTest {
 		mainController.personInput = personInput;
 		mainController.phonesOutput = phonesOutput;
 		mainController.phoneInput = phoneInput;
+		mainController.errorShower = mock(MainControllerErrorShower.class);
 	}
 
 	@Test
@@ -107,19 +110,30 @@ public class MainControllerTest {
 	@Test
 	public void void_should_save_phone_when_handle_event() throws Exception {
 
-		final SavePhoneEvent event = new SavePhoneEvent(A_PHONE_TO_SAVE);
+		mainController.selectedPersonId = 1;
+
+		final SavePhoneEvent event = SavePhoneEvent.create()
+				.withPhonePrefix("123")
+				.withPhoneNumber("456");
 
 		mainController.onSavePhone(event);
 
-		verify(phoneSaver).savePhone(A_PHONE_TO_SAVE);
+		final ArgumentCaptor<PhoneToSave> captor = ArgumentCaptor.forClass(PhoneToSave.class);
+		verify(phoneSaver).savePhone(captor.capture());
+		final PhoneToSave personToSave = captor.getValue();
+		assertThat(personToSave.personId, is(1));
+		assertThat(personToSave.prefix, is("123"));
+		assertThat(personToSave.number, is("456"));
 	}
 
 	@Test
 	public void void_should_refresh_phone_output_when_saves_a_phone() throws Exception {
 
-		final SavePhoneEvent event = new SavePhoneEvent(A_PHONE_TO_SAVE);
+		final SavePhoneEvent event = SavePhoneEvent.create()
+				.withPhonePrefix("123")
+				.withPhoneNumber("456");
 		final List<Phone> phones = Collections.emptyList();
-		when(phoneFinder.findPhonesByPersonId(A_PHONE_TO_SAVE.personId))
+		when(phoneFinder.findPhonesByPersonId(anyInt()))
 				.thenReturn(phones);
 
 		mainController.onSavePhone(event);
@@ -128,13 +142,19 @@ public class MainControllerTest {
 	}
 
 	@Test
-	public void void_should_throw_error_when_save_fails() throws Exception {
+	public void void_should_show_error_when_save_fails() throws Exception {
 
-		final SavePhoneEvent event = new SavePhoneEvent(A_PHONE_TO_SAVE);
+		final SavePhoneException savePhoneException = new SavePhoneException(SavePhoneError.PERSON_NOT_EXISTS, "");
 
-		doThrow(SavePhoneException.class).when(phoneSaver).savePhone(A_PHONE_TO_SAVE);
+		doThrow(savePhoneException).when(phoneSaver).savePhone(any(PhoneToSave.class));
 
-		assertThrows(RuntimeException.class, () -> mainController.onSavePhone(event));
+		final SavePhoneEvent event = SavePhoneEvent.create()
+				.withPhonePrefix("123")
+				.withPhoneNumber("456");
+
+		mainController.onSavePhone(event);
+
+		verify(mainController.errorShower).showSavePhoneError(SavePhoneError.PERSON_NOT_EXISTS);
 	}
 
 }

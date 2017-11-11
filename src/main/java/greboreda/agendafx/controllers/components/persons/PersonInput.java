@@ -3,7 +3,6 @@ package greboreda.agendafx.controllers.components.persons;
 import greboreda.agendafx.controllers.ViewLoader;
 import greboreda.agendafx.controllers.components.persons.events.SavePersonEvent;
 import greboreda.agendafx.domain.person.PersonToSave;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -28,7 +27,6 @@ public class PersonInput extends FlowPane implements Initializable {
 	@FXML
 	private Button saveButton;
 
-	private EventHandler<SavePersonEvent> onSavePersonHandler;
 	private ResourceBundle resources;
 
 	public PersonInput() {
@@ -49,7 +47,7 @@ public class PersonInput extends FlowPane implements Initializable {
 			return;
 		}
 		final SavePersonEvent savePersonEvent = new SavePersonEvent(personToSave);
-		onSavePersonHandler.handle(savePersonEvent);
+		this.fireEvent(savePersonEvent);
 	}
 
 	private PersonToSave retrievePersonToSave() {
@@ -68,11 +66,4 @@ public class PersonInput extends FlowPane implements Initializable {
 		error.showAndWait();
 	}
 
-	public final EventHandler<SavePersonEvent> getOnSavePerson() {
-		return onSavePersonHandler;
-	}
-
-	public final void setOnSavePerson(EventHandler<SavePersonEvent> savePersonEventHandler) {
-		this.onSavePersonHandler = savePersonEventHandler;
-	}
 }

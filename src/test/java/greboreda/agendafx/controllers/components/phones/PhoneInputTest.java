@@ -4,15 +4,14 @@ import greboreda.agendafx.AgendaFxApplication;
 import greboreda.agendafx.MainApplicationMock;
 import greboreda.agendafx.controllers.ViewLoader;
 import greboreda.agendafx.controllers.components.phones.events.SavePhoneEvent;
-import greboreda.agendafx.domain.phone.PhoneToSave;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -49,7 +48,6 @@ public class PhoneInputTest {
 		phoneInput.phoneNumberInput = spy(TextField.class);
 		phoneInput.phonePrefixInput = spy(TextField.class);
 		phoneInput.saveButton = spy(Button.class);
-		phoneInput.setOnSavePhone(mock(EventHandler.class));
 	}
 
 	@AfterClass
@@ -70,32 +68,19 @@ public class PhoneInputTest {
 	}
 
 	@Test
-	public void should_enable_save_button_when_setting_a_not_null_person_id() {
-		phoneInput.setPersonIdToSavePhone(123);
-		verify(phoneInput.saveButton).setDisable(false);
-	}
+	@Ignore
+	public void should_fire_save_person_event_when_handled_on_save() {
 
-	@Test
-	public void should_disable_save_button_when_setting_a_null_person_id() {
-		phoneInput.setPersonIdToSavePhone(null);
-		verify(phoneInput.saveButton).setDisable(true);
-	}
-
-	@Test
-	public void should_handle_save_person_event_when_handled_on_save() {
-
-		phoneInput.setPersonIdToSavePhone(123);
 		phoneInput.phonePrefixInput.setText("123");
 		phoneInput.phoneNumberInput.setText("456");
 
 		phoneInput.onSavePhone(null);
 
 		final ArgumentCaptor<SavePhoneEvent> eventCaptor = ArgumentCaptor.forClass(SavePhoneEvent.class);
-		verify(phoneInput.getOnSavePhone()).handle(eventCaptor.capture());
-		final PhoneToSave phoneToSave = eventCaptor.getValue().getPhoneToSave();
-		assertThat(phoneToSave.personId, is(123));
-		assertThat(phoneToSave.number, is("456"));
-		assertThat(phoneToSave.prefix, is("123"));
+		verify(phoneInput).fireEvent(eventCaptor.capture());
+		final SavePhoneEvent savePhoneEvent = eventCaptor.getValue();
+		assertThat(savePhoneEvent.getPhonePrefix(), is("123"));
+		assertThat(savePhoneEvent.getPhoneNumber(), is("456"));
 	}
 
 }

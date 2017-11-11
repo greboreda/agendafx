@@ -33,6 +33,11 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static greboreda.agendafx.controllers.components.persons.events.PersonEventTypes.SAVE_PERSON;
+import static greboreda.agendafx.controllers.components.persons.events.PersonEventTypes.SEARCH_PERSON;
+import static greboreda.agendafx.controllers.components.persons.events.PersonEventTypes.SELECT_PERSON;
+import static greboreda.agendafx.controllers.components.phones.events.SavePhoneEvent.SAVE_PHONE;
+
 
 @Component
 public class MainController extends VBox implements Initializable {
@@ -53,7 +58,8 @@ public class MainController extends VBox implements Initializable {
 	@FXML
 	PhoneInput phoneInput;
 
-	private MainControllerErrorShower errorShower;
+	MainControllerErrorShower errorShower;
+	Integer selectedPersonId;
 
 	@Inject
 	public MainController(PersonSaver personSaver, PersonFinder personFinder, PhoneFinder phoneFinder, PhoneSaver phoneSaver) {
@@ -67,10 +73,10 @@ public class MainController extends VBox implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		logger.info("Initializing");
 		this.errorShower = new MainControllerErrorShower(resources);
-		personsOutput.setOnSearchPersons(this::onSearchPersons);
-		personsOutput.setOnSelectPerson(this::onSelectPerson);
-		phoneInput.setOnSavePhone(this::onSavePhone);
-		personInput.setOnSavePerson(this::onSavePerson);
+		personsOutput.addEventHandler(SEARCH_PERSON, this::onSearchPersons);
+		personsOutput.addEventHandler(SELECT_PERSON, this::onSelectPerson);
+		personInput.addEventHandler(SAVE_PERSON, this::onSavePerson);
+		phoneInput.addEventHandler(SAVE_PHONE, this::onSavePhone);
 		refreshPersonsOutput(personFinder.findAllPersons());
 	}
 
@@ -79,7 +85,7 @@ public class MainController extends VBox implements Initializable {
 	}
 
 	void onSavePerson(SavePersonEvent savePersonEvent) {
-		final PersonToSave personToSave = savePersonEvent.getpersonToSave();
+		final PersonToSave personToSave = savePersonEvent.getPersonToSave();
 		logger.debug("Lets save person: " + personToSave);
 		try {
 			personSaver.savePerson(personToSave);
@@ -91,7 +97,8 @@ public class MainController extends VBox implements Initializable {
 
 	private void onSelectPerson(SelectPersonEvent selectPersonEvent) {
 		final Integer personId = selectPersonEvent.getPersonId();
-		phoneInput.setPersonIdToSavePhone(personId);
+		this.selectedPersonId = personId;
+		phoneInput.enableSaving();
 		refreshPhonesOutput(personId);
 	}
 
@@ -103,11 +110,10 @@ public class MainController extends VBox implements Initializable {
 	}
 
 	void onSavePhone(SavePhoneEvent savePhoneEvent) {
-		final PhoneToSave phoneToSave = savePhoneEvent.getPhoneToSave();
-		logger.debug(String.format("Lets save phone: (%s)%s for person %s",
-				phoneToSave.prefix,
-				phoneToSave.number,
-				phoneToSave.personId));
+		final PhoneToSave phoneToSave = PhoneToSave.create()
+				.forPersonWithId(selectedPersonId)
+				.withPrefix(savePhoneEvent.getPhonePrefix())
+				.withNumber(savePhoneEvent.getPhoneNumber());
 		try {
 			phoneSaver.savePhone(phoneToSave);
 			final List<Phone> phones = phoneFinder.findPhonesByPersonId(phoneToSave.personId);

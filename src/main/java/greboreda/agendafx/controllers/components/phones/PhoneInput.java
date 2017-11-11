@@ -2,8 +2,6 @@ package greboreda.agendafx.controllers.components.phones;
 
 import greboreda.agendafx.controllers.ViewLoader;
 import greboreda.agendafx.controllers.components.phones.events.SavePhoneEvent;
-import greboreda.agendafx.domain.phone.PhoneToSave;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -25,48 +23,29 @@ public class PhoneInput extends GridPane {
 	@FXML
 	Button saveButton;
 
-	private EventHandler<SavePhoneEvent> onSavePhoneHandler;
-	private Integer personIdToSavePhone;
-
 	public PhoneInput() {
 		ViewLoader.load(this);
 	}
 
 	@FXML
 	public void initialize() {
-		saveButton.setDisable(true);
+		disableSaving();
 		saveButton.setOnMouseClicked(this::onSavePhone);
 	}
 
 	void onSavePhone(MouseEvent event) {
-		final PhoneToSave phoneToSave = retrievePhoneToSave();
-		final SavePhoneEvent savePhoneEvent = new SavePhoneEvent(phoneToSave);
-		onSavePhoneHandler.handle(savePhoneEvent);
+		final SavePhoneEvent savePhoneEvent = SavePhoneEvent.create()
+				.withPhonePrefix(phonePrefixInput.getText())
+				.withPhoneNumber(phoneNumberInput.getText());
+		this.fireEvent(savePhoneEvent);
 	}
 
-	private PhoneToSave retrievePhoneToSave() {
-		final String phonePrefix = phonePrefixInput.getText();
-		final String phoneNumber = phoneNumberInput.getText();
-		return PhoneToSave.create()
-				.forPersonWithId(personIdToSavePhone)
-				.withPrefix(phonePrefix)
-				.withNumber(phoneNumber);
+	public void enableSaving() {
+		this.saveButton.setDisable(false);
 	}
 
-	public void setOnSavePhone(EventHandler<SavePhoneEvent> savePhoneEventHandler) {
-		this.onSavePhoneHandler = savePhoneEventHandler;
+	public void disableSaving() {
+		this.saveButton.setDisable(true);
 	}
 
-	public EventHandler<SavePhoneEvent> getOnSavePhone() {
-		return this.onSavePhoneHandler;
-	}
-
-	public Integer getPersonIdToSavePhone() {
-		return personIdToSavePhone;
-	}
-
-	public void setPersonIdToSavePhone(Integer personIdToSavePhone) {
-		this.personIdToSavePhone = personIdToSavePhone;
-		saveButton.setDisable(personIdToSavePhone == null);
-	}
 }
